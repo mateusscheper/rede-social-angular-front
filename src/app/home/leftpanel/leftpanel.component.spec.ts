@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LeftpanelComponent } from './leftpanel.component';
+import {LeftpanelComponent} from './leftpanel.component';
 
 describe('LeftpanelComponent', () => {
   let component: LeftpanelComponent;
@@ -8,9 +8,9 @@ describe('LeftpanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LeftpanelComponent ]
+      declarations: [LeftpanelComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

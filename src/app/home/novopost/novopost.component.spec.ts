@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {RightpanelComponent} from './rightpanel.component';
+import {NovopostComponent} from './novopost.component';
 
-describe('RightpanelComponent', () => {
-  let component: RightpanelComponent;
-  let fixture: ComponentFixture<RightpanelComponent>;
+describe('NovopostComponent', () => {
+  let component: NovopostComponent;
+  let fixture: ComponentFixture<NovopostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RightpanelComponent]
+      declarations: [NovopostComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RightpanelComponent);
+    fixture = TestBed.createComponent(NovopostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -22,9 +22,14 @@ export class PostService {
     );
 
     posts.push(post);
+    posts.push(post);
 
     console.log(post.criador?.nome);
 
     return posts;
+  }
+
+  postar(post: Post) {
+    console.log(post);
   }
 }
