@@ -1,8 +1,12 @@
 <div class="card">
   <div class="card-header">
-    <img [src]="post.criador?.foto" alt="Foto de {{post.criador?.nome}}"/>
-    {{post.criador?.nome}}
-    <div class="dropdown">
+    <a href="#">
+      <img [src]="post.criador?.foto"
+           alt="Foto de {{post.criador?.nome}}"
+           class="avatar"/>
+      {{post.criador?.nome}}
+    </a>
+    <div class="dropdown float-end">
       <a aria-expanded="false" class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMenuLink"
          role="button">
         ...
@@ -17,7 +21,7 @@
   </div>
 
   <div class="card-body">
-    <img alt="..." class="card-img-top" src="assets/test.jpg">
+    <img alt="..." class="card-img-top" src="assets/test.jpg" style="max-width: 600px">
     <div>
       <svg aria-label="Curtir" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 48 48"
            width="24">
@@ -39,7 +43,40 @@
     <p class="card-text">{{post.descricao}}</p>
   </div>
   <div class="card-footer text-muted">
-    <img src="favicon.ico"/> Adicionar comentário
+    <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
+      <div class="col-1">
+        <img [src]="comentario.fotoUsuario"
+             alt="Picture of {{comentario.nomeUsuario}}"
+             class="avatar-sm">
+      </div>
+      <div class="col-3">
+        {{comentario.nomeUsuario}}
+      </div>
+      <div class="col-8">
+        {{comentario.descricao}}
+      </div>
+    </div>
+
+    <form #formComentario="ngForm">
+      <div class="input-group">
+        <img src="assets/nopic.png"
+             alt="Picture of user"
+             class="avatar"/>
+
+        <input type="text"
+               required="required"
+               [(ngModel)]="comentario.descricao"
+               name="comentarioInput"
+               class="form-control"
+               id="addComentario"
+               placeholder="Adicionar comentário">
+
+        <button [disabled]="!formComentario.form.valid"
+                class="btn btn-outline-primary"
+                type="button">Comentar
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 

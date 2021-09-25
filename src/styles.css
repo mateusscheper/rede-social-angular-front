@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.avatar {
+  border-radius: 50%;
+  max-width: 36px;
+}
+
+.avatar-sm {
+  border-radius: 50%;
+  max-width: 16px;
+}
+
+a {
+  color: black !important;
+  text-decoration: none !important;
+}

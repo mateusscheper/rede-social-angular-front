@@ -1,6 +1,14 @@
-<span>timeline</span>
+<div [hidden]="!carregando"
+     class="text-center">
+  <div
+    class="spinner-border"
+    role="status">
+    <span class="visually-hidden">Carregando...</span>
+  </div>
+</div>
 
-<div *ngFor="let post of posts">
+<div [hidden]="carregando"
+     *ngFor="let post of posts">
   <post [post]="post"></post>
 </div>
 
