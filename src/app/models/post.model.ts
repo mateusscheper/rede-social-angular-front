@@ -7,6 +7,7 @@ export class Post {
 
   constructor(
     public idPost?: number,
+    public idUsuario?: number,
     public criador?: Usuario,
     public criacao?: Date,
     public exclusao?: Date,
@@ -14,6 +15,7 @@ export class Post {
     public reacoes?: Reacao[],
     public arquivos?: Arquivo[],
     public comentarios?: Comentario[],
-    public descricao?: string) {
+    public descricao?: string,
+    public imagem?: File) {
   }
 }

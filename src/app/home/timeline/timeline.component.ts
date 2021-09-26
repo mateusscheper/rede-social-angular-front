@@ -17,11 +17,15 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.carregarPosts();
+  }
+
+  carregarPosts() {
     this.postService.buscarPosts(1)
       .subscribe(response => {
-        this.posts = response;
-        this.carregando = false;
-      },
+          this.posts = response;
+          this.carregando = false;
+        },
         error => {console.log(error)});
   }
 }

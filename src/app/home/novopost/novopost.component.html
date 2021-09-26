@@ -19,13 +19,20 @@
                 type="button"></button>
       </div>
       <div class="modal-body">
-        <form #postForm="ngForm">
+        <form>
           <div class="mb-3">
             <textarea [(ngModel)]="post.descricao"
                       class="form-control"
+                      #descricao="ngModel"
                       name="descricao"
                       required="required"></textarea>
           </div>
+
+          <input type="file"
+                 name="imagem"
+                 (change)="associarImagemAoPost($event)"
+                 required="required"
+                 class="form-control btn btn-primary">
         </form>
       </div>
       <div class="modal-footer">
@@ -35,7 +42,7 @@
                 type="button">Cancelar
         </button>
         <button (click)="postar()"
-                [disabled]="!postForm.form.valid"
+                [disabled]="!descricao.valid"
                 aria-label="Postar"
                 class="btn btn-primary"
                 data-bs-dismiss="modal"

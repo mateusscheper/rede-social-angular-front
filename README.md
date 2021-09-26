@@ -1,27 +1,29 @@
-# RedeSocialAngularFront
+Módulo | Item | Subitem | Concluído
+--- | --- | --- | ---
+Home | Linha do tempo | Listar posts | :heavy_check_mark:
+Home | Linha do tempo | Ver post completo | :x:
+Home | Linha do tempo | Exibir reações | :x:
+Home | Linha do tempo | Exibir comentários | :heavy_check_mark:
+Home | Linha do tempo | Postar | :heavy_check_mark:
+Home | Linha do tempo | Comentar | :x:
+Home | Linha do tempo | Comentar em um comentário | :x:
+Home | Linha do tempo | Ver todos os comentários | :x:
+Home | Linha do tempo | Ver subcomentários | :x:
+Home | Linha do tempo | Reagir ao post | :x:
+Home | Linha do tempo | Reagir ao comentário | :x:
+Home | Linha do tempo | Reagir ao subcomentário | :x:
+Home | Linha do tempo | Link para perfil | :x:
+Home | Linha do tempo | Link para post | :x:
+Home | Linha do tempo | Menu "..." do post | :x:
+Home | Linha do tempo | Menu "..." do comentário | :x:
+Home | Linha do tempo | Menu "..." do subcomentário | :x:
+Home | Menu esquerdo | Nenhum item ainda | :x:
+Home | Menu direito | Nenhum item ainda | :x:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.5.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Legenda: 
+:heavy_check_mark: Feito
+:x: Ainda não feito
+:white_circle: A planejar
+:large_blue_circle: Em planejamento
+:clock1030: Em desenvolvimento
+:red_circle: Cancelado

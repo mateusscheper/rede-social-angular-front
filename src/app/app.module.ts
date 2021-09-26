@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {HomeModule} from "./home";
+import {DataPostPipe} from "./pipes";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,8 @@ import {HomeModule} from "./home";
     HomeModule
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

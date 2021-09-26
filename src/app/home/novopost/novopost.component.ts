@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostService} from "../../services";
 import {Post} from "../../models";
-import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'novopost',
@@ -12,9 +11,14 @@ export class NovopostComponent implements OnInit {
 
   esconderBotao: boolean = false;
 
-  @ViewChild("postForm", {static: true}) postForm: NgForm;
+  @Input()
+  posts: Post[];
+
+  @Output() onPostSuccess: EventEmitter<any> = new EventEmitter<any>();
 
   post: Post;
+
+  private imagem: any;
 
   constructor(private postService: PostService) {
   }
@@ -31,7 +35,17 @@ export class NovopostComponent implements OnInit {
   }
 
   postar() {
-    this.postService.postar(this.post);
-    this.esconderBotao = false;
+    this.postService.postar(this.post, this.imagem)
+      .subscribe(() => {
+        this.esconderBotao = false;
+        this.onPostSuccess.emit();
+      });
+  }
+
+  associarImagemAoPost(event) {
+    const file = event.target.files[0];
+    if (file) {
+      this.imagem = file;
+    }
   }
 }

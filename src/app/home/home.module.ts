@@ -7,7 +7,7 @@ import {NavbarComponent} from './navbar';
 import {NovopostComponent} from './novopost';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-
+import {DataPostPipe} from "../pipes";
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import {HttpClientModule} from "@angular/common/http";
     RightpanelComponent,
     NavbarComponent,
     PostComponent,
-    NovopostComponent
+    NovopostComponent,
+    DataPostPipe
   ],
   exports: [
     TimelineComponent,

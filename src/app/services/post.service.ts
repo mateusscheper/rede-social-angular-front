@@ -15,8 +15,14 @@ export class PostService {
     return this.httpClient.get("http://localhost:8080/api/post/" + idUsuario);
   }
 
-  postar(post: Post) {
-    console.log(post);
+  postar(post: Post, imagem: any): Observable<any> {
+    post.idUsuario = 1;
+    const formData = new FormData();
+
+    formData.append("imagem", imagem);
+    formData.append("post", new Blob([JSON.stringify(post)]));
+
+    return this.httpClient.post("http://localhost:8080/api/post", formData);
   }
 
   buscarComentarios(idPost: number): Observable<any> {
