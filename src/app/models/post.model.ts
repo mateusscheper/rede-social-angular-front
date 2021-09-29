@@ -10,7 +10,6 @@ export class Post {
     public idUsuario?: number,
     public criador?: Usuario,
     public criacao?: Date,
-    public exclusao?: Date,
     public visualizadores?: Usuario[],
     public reacoes?: Reacao[],
     public arquivos?: Arquivo[],

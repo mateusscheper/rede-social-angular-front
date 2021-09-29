@@ -1,45 +1,50 @@
-import {Usuario} from "./usuario.model";
-import {Post} from "./post.model";
-import {TipoReacao} from "./tipo-reacao.model";
-
 export class Reacao {
 
   constructor(
-    private _post: Post,
-    private _tipo: TipoReacao,
-    private _usuario: Usuario,
-    private _dataHora: Date) {
+    private _idReacao?: number,
+    private _nome?: string,
+    private _icone?: string,
+    private _quantidade?: number,
+    private _marcado?: boolean) {
   }
 
-  get post(): Post {
-    return this._post;
+  get idReacao(): number {
+    return this._idReacao;
   }
 
-  set post(value: Post) {
-    this._post = value;
+  set idReacao(value: number) {
+    this._idReacao = value;
   }
 
-  get tipo(): TipoReacao {
-    return this._tipo;
+  get nome(): string {
+    return this._nome;
   }
 
-  set tipo(value: TipoReacao) {
-    this._tipo = value;
+  set nome(value: string) {
+    this._nome = value;
   }
 
-  get usuario(): Usuario {
-    return this._usuario;
+  get icone(): string {
+    return this._icone;
   }
 
-  set usuario(value: Usuario) {
-    this._usuario = value;
+  set icone(value: string) {
+    this._icone = value;
   }
 
-  get dataHora(): Date {
-    return this._dataHora;
+  get quantidade(): number {
+    return this._quantidade;
   }
 
-  set dataHora(value: Date) {
-    this._dataHora = value;
+  set quantidade(value: number) {
+    this._quantidade = value;
+  }
+
+  get marcado(): boolean {
+    return this._marcado;
+  }
+
+  set marcado(value: boolean) {
+    this._marcado = value;
   }
 }

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Post} from "../models";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {Reagir} from "../models/reagir.model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,14 @@ export class PostService {
 
   buscarComentarios(idPost: number): Observable<any> {
     return this.httpClient.get("http://localhost:8080/api/post/" + idPost + "/comentario");
+  }
+
+  reagir(idReacao: number, marcado: boolean, idPost: number, idUsuario: number): Observable<any> {
+    let reagir = new Reagir(idReacao, marcado, idPost, idUsuario);
+    return this.httpClient.post("http://localhost:8080/api/reacao", reagir);
+  }
+
+  buscarReacoes(idPost: number, idUsuario: number): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/reacao/post/" + idPost + "/usuario/" + idUsuario);
   }
 }
