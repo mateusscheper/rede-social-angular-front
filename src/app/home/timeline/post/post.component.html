@@ -25,7 +25,16 @@
   </div>
 
   <div class="card-body">
-    <img alt="..." class="card-img-top" src="assets/test.jpg" style="max-width: 600px">
+    <img alt="..."
+         class="card-img-top mb-4"
+         [hidden]="!post.arquivo"
+         src="{{post.arquivo}}"
+         style="max-width: 600px; max-height: 600px; object-fit: cover">
+
+    <p class="card-text"
+       [class.text-center]="!post.arquivo"
+       [hidden]="!post.descricao"
+       style="clear: left">{{post.descricao}}</p>
 
     <div *ngFor="let reacao of post.reacoes" style="float: left; cursor: pointer">
       <div>
@@ -40,8 +49,6 @@
         </span>
       </div>
     </div>
-
-    <p class="card-text" style="clear: left">{{post.descricao}}</p>
 
   </div>
   <div class="card-footer text-muted">

@@ -24,7 +24,12 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "../../uploads",
+                "output": "./assets/uploads"
+              }
             ],
             "styles": [
               "src/styles.css",

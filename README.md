@@ -2,9 +2,9 @@ Módulo | Item | Subitem | Concluído
 --- | --- | --- | ---
 Home | Linha do tempo | Listar posts | :heavy_check_mark:
 Home | Linha do tempo | Ver post completo | :x:
-Home | Linha do tempo | Ver somente descrição quando post não possui imagem | :x:
+Home | Linha do tempo | Ver somente descrição quando post não possui imagem | :heavy_check_mark:
 Home | Linha do tempo | Ver imagem com descrição quando post possui ambos | :heavy_check_mark:
-Home | Linha do tempo | Ver somente imagem quando post não possui descrição | :x:
+Home | Linha do tempo | Ver somente imagem quando post não possui descrição | :heavy_check_mark:
 Home | Linha do tempo | Ver post completo | :x:
 Home | Linha do tempo | Exibir reações | :heavy_check_mark:
 Home | Linha do tempo | Exibir comentários | :heavy_check_mark:

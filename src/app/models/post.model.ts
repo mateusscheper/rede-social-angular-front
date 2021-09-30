@@ -1,6 +1,5 @@
 import {Usuario} from "./usuario.model";
 import {Reacao} from "./reacao.model";
-import {Arquivo} from "./arquivo.model";
 import {Comentario} from "./comentario.model";
 
 export class Post {
@@ -12,7 +11,7 @@ export class Post {
     public criacao?: Date,
     public visualizadores?: Usuario[],
     public reacoes?: Reacao[],
-    public arquivos?: Arquivo[],
+    public arquivo?: string,
     public comentarios?: Comentario[],
     public descricao?: string,
     public imagem?: File) {
