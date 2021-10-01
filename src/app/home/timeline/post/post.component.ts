@@ -20,9 +20,57 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.post.idPost != null) {
-      this.buscarReacoes();
+      this.comentario.idPost = this.post.idPost;
+      this.comentario.idUsuario = 1;
+      this.buscarReacoes(null);
       this.buscarComentarios();
     }
+  }
+
+  reagir(nomeReacao: string, idComentario: number) {
+    let reacao = this.filtrarReacaoPorNome(idComentario, nomeReacao);
+    if (reacao != null) {
+      let toggleMarcacao = !reacao.marcado;
+      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, 1)
+        .subscribe(() => this.buscarReacoes(idComentario));
+    }
+  }
+
+  obterReacaoPost(nome: string): Reacao {
+    return this.post.reacoes.find(r => r.nome == nome);
+  }
+
+  comentar() {
+    this.postService.comentar(this.comentario)
+      .subscribe(() => {
+          this.comentario = new Comentario();
+          this.comentario.idPost = this.post.idPost;
+          this.comentario.idUsuario = 1;
+          this.buscarComentarios();
+        },
+        error => console.log(error));
+  }
+
+  esconderMostrarPostCompleto(): boolean {
+    if (this.post.comentarios == null)
+      return true;
+
+    for (let c of this.post.comentarios) {
+      if (c.quantidadeComentariosPost > 3)
+        return false;
+    }
+    return true;
+  }
+
+  linkPostCompleto(): string {
+    return '#';
+  }
+
+  private filtrarReacaoPorNome(idComentario: number, nomeReacao: string) {
+    if (idComentario != null)
+      return this.obterReacaoComentario(nomeReacao, idComentario);
+    else
+      return this.obterReacaoPost(nomeReacao);
   }
 
   private buscarComentarios() {
@@ -32,23 +80,29 @@ export class PostComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  reagir(nomeReacao: string) {
-    let reacao = this.obterReacao(nomeReacao);
-    if (reacao != null) {
-      let toggleMarcacao = !reacao.marcado;
-      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, 1)
-        .subscribe(() => this.buscarReacoes());
-    }
-  }
-
-  private buscarReacoes() {
-    this.postService.buscarReacoes(this.post.idPost, 1)
+  private buscarReacoes(idComentario: number) {
+    this.postService.buscarReacoes(this.post.idPost, idComentario, 1)
       .subscribe(response => {
-        this.post.reacoes = response;
+        if (idComentario != null) {
+          for (let c of this.post.comentarios) {
+            if (c.idComentario == idComentario)
+              c.reacoes = response;
+          }
+        } else {
+          this.post.reacoes = response;
+        }
       })
   }
 
-  obterReacao(nome: string): Reacao {
-    return this.post.reacoes.find(r => r.nome == nome);
+  private obterReacaoComentario(nomeReacao: string, idComentario: number): Reacao {
+    for (let c of this.post.comentarios) {
+      if (c.idComentario == idComentario) {
+        for (let reacao of c.reacoes) {
+          if (reacao.nome == nomeReacao)
+            return reacao;
+        }
+      }
+    }
+    return null;
   }
 }

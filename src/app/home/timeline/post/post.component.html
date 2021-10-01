@@ -39,11 +39,12 @@
     <div *ngFor="let reacao of post.reacoes" style="float: left; cursor: pointer">
       <div>
         <img [src]="reacao.icone"
-             (click)="reagir(reacao.nome)"
+             (click)="reagir(reacao.nome, null)"
              alt="Ícone da reação {{reacao.nome}}"
              style="width: 32px"/>
 
-        <span class="position-absolute translate-middle badge rounded-pill bg-light text-dark" style="border: 1px solid #000000 !important;">
+        <span class="position-absolute translate-middle badge rounded-pill bg-light text-dark"
+              style="border: 1px solid #000000 !important;">
           {{reacao.quantidade}}
           <span class="visually-hidden">Quantidade de curtidas</span>
         </span>
@@ -61,9 +62,22 @@
       <div class="col-3">
         {{comentario.nomeUsuario}}
       </div>
-      <div class="col-8">
+      <div class="col-6">
         {{comentario.descricao}}
       </div>
+
+      <div class="col-2" style="display: flex; justify-content: end">
+        <div *ngFor="let reacao of comentario.reacoes">
+          <img [src]="reacao.icone"
+               (click)="reagir(reacao.nome, comentario.idComentario)"
+               alt="Ícone da reação {{reacao.nome}}"
+               style="width: 16px"/>
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="esconderMostrarPostCompleto()">
+      <a [href]="linkPostCompleto()">Mostrar post completo</a>
     </div>
 
     <form #formComentario="ngForm">
@@ -81,6 +95,7 @@
                placeholder="Adicionar comentário">
 
         <button [disabled]="!formComentario.form.valid"
+                (click)="comentar()"
                 class="btn btn-outline-primary"
                 type="button">Comentar
         </button>
