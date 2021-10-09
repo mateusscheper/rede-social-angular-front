@@ -27,7 +27,7 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "../../uploads",
+                "input": "C:\\Users\\Mateus\\uploads",
                 "output": "./assets/uploads"
               }
             ],

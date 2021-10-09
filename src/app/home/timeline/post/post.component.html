@@ -77,7 +77,7 @@
     </div>
 
     <div [hidden]="esconderMostrarPostCompleto()">
-      <a [href]="linkPostCompleto()">Mostrar post completo</a>
+      <a [routerLink]="['/post', post.idPost]">Mostrar post completo</a>
     </div>
 
     <form #formComentario="ngForm">

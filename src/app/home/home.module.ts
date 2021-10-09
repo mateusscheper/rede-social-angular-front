@@ -8,6 +8,8 @@ import {NovopostComponent} from './novopost';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {DataPostPipe} from "../pipes";
+import {RouterModule} from "@angular/router";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,19 +19,22 @@ import {DataPostPipe} from "../pipes";
     NavbarComponent,
     PostComponent,
     NovopostComponent,
-    DataPostPipe
+    DataPostPipe,
+    HomeComponent
   ],
-  exports: [
-    TimelineComponent,
-    LeftpanelComponent,
-    RightpanelComponent,
-    NavbarComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule
-  ],
+    exports: [
+        TimelineComponent,
+        LeftpanelComponent,
+        RightpanelComponent,
+        NavbarComponent,
+        DataPostPipe
+    ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule
+    ],
   providers: [
   ]
 })

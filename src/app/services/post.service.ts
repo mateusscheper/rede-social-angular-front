@@ -14,7 +14,7 @@ export class PostService {
   }
 
   buscarPosts(idUsuario: number): Observable<any> {
-    return this.httpClient.get("http://localhost:8080/api/post/" + idUsuario);
+    return this.httpClient.get("http://localhost:8080/api/usuario/" + idUsuario + "/post");
   }
 
   postar(post: Post, imagem: any): Observable<any> {
@@ -54,5 +54,9 @@ export class PostService {
 
   comentar(comentario: Comentario): Observable<any> {
     return this.httpClient.post("http://localhost:8080/api/comentario", comentario);
+  }
+
+  buscarPorId(idPost: number, idUsuario: number): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/post/" + idPost + "?idUsuario=" + idUsuario);
   }
 }
