@@ -44,8 +44,7 @@ export class NovopostComponent implements OnInit {
 
   associarImagemAoPost(event) {
     const file = event.target.files[0];
-    if (file) {
+    if (file)
       this.imagem = file;
-    }
   }
 }

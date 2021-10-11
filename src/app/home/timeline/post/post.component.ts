@@ -27,7 +27,7 @@ export class PostComponent implements OnInit {
     }
   }
 
-  reagir(nomeReacao: string, idComentario: number) {
+  public reagir(nomeReacao: string, idComentario: number) {
     let reacao = this.filtrarReacaoPorNome(idComentario, nomeReacao);
     if (reacao != null) {
       let toggleMarcacao = !reacao.marcado;
@@ -36,11 +36,7 @@ export class PostComponent implements OnInit {
     }
   }
 
-  obterReacaoPost(nome: string): Reacao {
-    return this.post.reacoes.find(r => r.nome == nome);
-  }
-
-  comentar() {
+  public comentar() {
     this.postService.comentar(this.comentario)
       .subscribe(() => {
           this.comentario = new Comentario();
@@ -51,7 +47,7 @@ export class PostComponent implements OnInit {
         error => console.log(error));
   }
 
-  esconderMostrarPostCompleto(): boolean {
+  public esconderMostrarPostCompleto(): boolean {
     if (this.post.comentarios == null)
       return true;
 
@@ -62,10 +58,6 @@ export class PostComponent implements OnInit {
     return true;
   }
 
-  linkPostCompleto(): string {
-    return '#';
-  }
-
   private filtrarReacaoPorNome(idComentario: number, nomeReacao: string) {
     if (idComentario != null)
       return this.obterReacaoComentario(nomeReacao, idComentario);
@@ -73,8 +65,24 @@ export class PostComponent implements OnInit {
       return this.obterReacaoPost(nomeReacao);
   }
 
+  private obterReacaoComentario(nomeReacao: string, idComentario: number): Reacao {
+    for (let c of this.post.comentarios) {
+      if (c.idComentario == idComentario) {
+        for (let reacao of c.reacoes) {
+          if (reacao.nome == nomeReacao)
+            return reacao;
+        }
+      }
+    }
+    return null;
+  }
+
+  private obterReacaoPost(nome: string): Reacao {
+    return this.post.reacoes.find(r => r.nome == nome);
+  }
+
   private buscarComentarios() {
-    this.postService.buscarComentarios(this.post.idPost)
+    this.postService.buscarComentarios(this.post.idPost, 1, 3)
       .subscribe(response => {
         this.post.comentarios = response;
       }, error => console.log(error));
@@ -92,17 +100,5 @@ export class PostComponent implements OnInit {
           this.post.reacoes = response;
         }
       })
-  }
-
-  private obterReacaoComentario(nomeReacao: string, idComentario: number): Reacao {
-    for (let c of this.post.comentarios) {
-      if (c.idComentario == idComentario) {
-        for (let reacao of c.reacoes) {
-          if (reacao.nome == nomeReacao)
-            return reacao;
-        }
-      }
-    }
-    return null;
   }
 }

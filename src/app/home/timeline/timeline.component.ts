@@ -26,6 +26,6 @@ export class TimelineComponent implements OnInit {
           this.posts = response;
           this.carregando = false;
         },
-        error => {console.log(error)});
+        error => console.log(error));
   }
 }

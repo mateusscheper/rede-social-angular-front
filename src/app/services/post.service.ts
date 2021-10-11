@@ -14,7 +14,7 @@ export class PostService {
   }
 
   buscarPosts(idUsuario: number): Observable<any> {
-    return this.httpClient.get("http://localhost:8080/api/usuario/" + idUsuario + "/post");
+    return this.httpClient.get("http://localhost:8080/api/post?idUsuario=" + idUsuario);
   }
 
   postar(post: Post, imagem: any): Observable<any> {
@@ -27,8 +27,12 @@ export class PostService {
     return this.httpClient.post("http://localhost:8080/api/post", formData);
   }
 
-  buscarComentarios(idPost: number): Observable<any> {
-    return this.httpClient.get("http://localhost:8080/api/comentario?idPost=" + idPost + "&idUsuario=" + "1" + "&limit=" + 3);
+  buscarComentarios(idPost: number, idUsuario: number, limit: number): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/comentario?idPost=" + idPost + "&idUsuario=" + idUsuario + "&limit=" + limit);
+  }
+
+  buscarSubcomentarios(idComentarioPai: number, idUsuario: number): Observable<any> {
+    return this.httpClient.get("http://localhost:8080/api/comentario/" + idComentarioPai + "/subcomentario?idUsuario=" + idUsuario);
   }
 
   reagir(idReacao: number, marcado: boolean, idPost: number, idComentario: number, idUsuario: number): Observable<any> {
@@ -38,7 +42,6 @@ export class PostService {
 
   buscarReacoes(idPost: number, idComentario: number, idUsuario: number): Observable<any> {
     let url = this.montarUrlBuscarReacoes(idComentario, idPost, idUsuario);
-
     return this.httpClient.get(url);
   }
 
@@ -53,6 +56,7 @@ export class PostService {
   }
 
   comentar(comentario: Comentario): Observable<any> {
+    console.log(comentario)
     return this.httpClient.post("http://localhost:8080/api/comentario", comentario);
   }
 

@@ -42,7 +42,7 @@
       <div *ngFor="let reacao of post?.reacoes" style="float: left; cursor: pointer">
         <div>
           <img [src]="reacao.icone"
-               (click)="reagir(reacao.nome, null)"
+               (click)="reagir(reacao.nome, null, 'post')"
                alt="Ícone da reação {{reacao.nome}}"
                style="width: 32px"/>
 
@@ -81,35 +81,62 @@
         <div class="col-2" style="display: flex; justify-content: end">
           <div *ngFor="let reacao of comentario.reacoes">
             <img [src]="reacao.icone"
-                 (click)="reagir(reacao.nome, comentario.idComentario)"
+                 (click)="reagir(reacao.nome, comentario.idComentario, 'comentario')"
                  title="{{reacao.nome}}"
                  alt="Ícone da reação {{reacao.nome}}"
                  style="width: 16px; cursor: pointer"/>
           </div>
         </div>
 
-        <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
-          <form #formSubcomentario="ngForm">
-            <div class="input-group">
-              <img src="assets/nopic.png"
-                   alt="Picture of user"
-                   class="avatar"/>
-
-              <input type="text"
-                     required="required"
-                     [(ngModel)]="subcomentario.descricao"
-                     name="subcomentarioInput"
-                     class="form-control"
-                     id="addSubcomentario"
-                     placeholder="Adicionar comentário">
-
-              <button [disabled]="!formSubcomentario.form.valid"
-                      (click)="subcomentar(comentario.idComentario)"
-                      class="btn btn-outline-primary"
-                      type="button">Comentar
-              </button>
+        <div>
+          <div *ngFor="let subcomentario of comentario.subcomentarios" class="row">
+            <div class="col-1" style="border-right: 1px solid #efe6e6"></div>
+            <div class="col-1" style="border-bottom: 1px solid #efe6e6">
+              <img [src]="subcomentario.fotoUsuario"
+                   alt="Picture of {{subcomentario.nomeUsuario}}"
+                   class="avatar-sm">
             </div>
-          </form>
+            <div class="col-3" style="border-bottom: 1px solid #efe6e6">
+              {{subcomentario.nomeUsuario}}
+            </div>
+            <div class="col-5" style="border-bottom: 1px solid #efe6e6">
+              {{subcomentario.descricao}}
+            </div>
+
+            <div class="col-2" style="display: flex; justify-content: end; border-bottom: 1px solid #efe6e6">
+              <div *ngFor="let reacao of subcomentario.reacoes">
+                <img [src]="reacao.icone"
+                     (click)="reagir(reacao.nome, subcomentario.idComentario, 'subcomentario')"
+                     title="{{reacao.nome}}"
+                     alt="Ícone da reação {{reacao.nome}}"
+                     style="width: 16px; cursor: pointer"/>
+              </div>
+            </div>
+          </div>
+
+          <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
+            <form #formSubcomentario="ngForm">
+              <div class="input-group">
+                <img src="assets/nopic.png"
+                     alt="Picture of user"
+                     class="avatar"/>
+
+                <input type="text"
+                       required="required"
+                       [(ngModel)]="subcomentario.descricao"
+                       name="subcomentarioInput"
+                       class="form-control"
+                       id="addSubcomentario"
+                       placeholder="Adicionar comentário">
+
+                <button [disabled]="!formSubcomentario.form.valid"
+                        (click)="subcomentar(comentario.idComentario)"
+                        class="btn btn-outline-primary"
+                        type="button">Comentar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 

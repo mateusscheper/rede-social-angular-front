@@ -12,14 +12,20 @@ Home | Linha do tempo | Exibir comentários | :heavy_check_mark:
 Home | Linha do tempo | Reagir ao comentário | :heavy_check_mark:
 Home | Linha do tempo | Exibir reações comentários | :heavy_check_mark:
 Home | Linha do tempo | Comentar em um comentário | :large_blue_circle:
-Home | Linha do tempo | Reagir ao subcomentário | :large_blue_circle:
 Home | Linha do tempo | Ver subcomentários | :large_blue_circle:
 Home | Linha do tempo | Link para perfil | :large_blue_circle:
 Home | Linha do tempo | Link para post completo | :large_blue_circle:
 Home | Linha do tempo | Menu "..." do post | :white_circle:
 Home | Linha do tempo | Menu "..." do comentário | :white_circle:
 Home | Linha do tempo | Menu "..." do subcomentário | :white_circle:
-Home | Tela de post   | Nenhum item ainda | :white_circle:
+Home | Tela de post   | Mostrar imagem e/ou descrição do post | :heavy_check_mark:
+Home | Tela de post   | Reagir ao post | :heavy_check_mark:
+Home | Tela de post   | Listar comentários | :heavy_check_mark:
+Home | Tela de post   | Listar subcomentários | :heavy_check_mark:
+Home | Tela de post   | Reagir ao comentário | :heavy_check_mark:
+Home | Tela de post   | Reagir ao subcomentário | :heavy_check_mark:
+Home | Tela de post   | Comentar no post | :heavy_check_mark:
+Home | Tela de post   | Comentar em comentários | :heavy_check_mark:
 Home | Menu esquerdo | Nenhum item ainda | :white_circle:
 Home | Menu direito | Nenhum item ainda | :white_circle:
 

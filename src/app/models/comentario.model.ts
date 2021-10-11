@@ -10,6 +10,7 @@ export class Comentario {
     public fotoUsuario?: string,
     public descricao?: string,
     public reacoes?: Reacao[],
+    public subcomentarios?: Comentario[],
     public quantidadeComentariosPost?: number) {
   }
 }
