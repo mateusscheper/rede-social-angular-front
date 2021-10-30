@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registro',
@@ -17,12 +18,17 @@ export class RegistroComponent implements OnInit {
 
   falhou = false;
 
-  mensagemErro = '';
-
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
+    const token = this.authService.obterToken();
+    if (token) {
+      this.authService.validarToken(token)
+        .then(() => this.router.navigate(['/home']),
+          () => this.router.navigate(['/login']))
+        .catch()
+    }
   }
 
   onSubmit(): void {
@@ -33,10 +39,6 @@ export class RegistroComponent implements OnInit {
           this.sucesso = true;
           this.falhou = false;
         },
-        err => {
-          this.mensagemErro = err.error.message;
-          this.falhou = true;
-        }
-      );
+        () => this.falhou = true);
   }
 }

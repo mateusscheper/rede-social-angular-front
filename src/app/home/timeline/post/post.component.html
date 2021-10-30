@@ -1,8 +1,9 @@
 <div class="card">
   <div class="card-header">
-    <a href="#">
+    <a [routerLink]="['/perfil', post.criador?.idUsuario]">
       <img [src]="post.criador?.foto"
            alt="Foto de {{post.criador?.nome}}"
+           [title]="post.criador?.nome"
            class="avatar"/>
       {{post.criador?.nome}}
     </a>
@@ -55,12 +56,17 @@
   <div class="card-footer text-muted">
     <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
       <div class="col-1">
-        <img [src]="comentario.fotoUsuario"
-             alt="Picture of {{comentario.nomeUsuario}}"
-             class="avatar-sm">
+        <a [routerLink]="['/perfil', comentario.idUsuario]">
+          <img [src]="comentario.fotoUsuario"
+               alt="Picture of {{comentario.nomeUsuario}}"
+               [title]="comentario.nomeUsuario"
+               class="avatar-sm">
+        </a>
       </div>
       <div class="col-3">
-        {{comentario.nomeUsuario}}
+        <a [routerLink]="['/perfil', comentario.idUsuario]">
+          {{comentario.nomeUsuario}}
+        </a>
       </div>
       <div class="col-6">
         {{comentario.descricao}}
@@ -82,9 +88,12 @@
 
     <form #formComentario="ngForm">
       <div class="input-group">
-        <img src="assets/nopic.png"
-             alt="Picture of user"
-             class="avatar"/>
+        <a routerLink="/perfil">
+          <img [src]="usuario?.foto"
+               alt="Picture of user"
+               [title]="usuario?.nome"
+               class="avatar"/>
+        </a>
 
         <input type="text"
                required="required"

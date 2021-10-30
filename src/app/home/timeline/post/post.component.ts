@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post, Reacao} from "../../../models";
 import {Comentario} from "../../../models/comentario.model";
-import {PostService} from "../../../services";
+import {AuthService, PostService} from "../../../services";
+import {UsuarioSimplesDTO} from "../../../models/usuario-simples.model";
 
 @Component({
   selector: 'post',
@@ -14,11 +15,14 @@ export class PostComponent implements OnInit {
   post: Post = new Post();
 
   comentario: Comentario = new Comentario();
+  usuario: UsuarioSimplesDTO;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.usuario = this.authService.obterUsuario();
+
     if (this.post.idPost != null) {
       this.comentario.idPost = this.post.idPost;
       this.comentario.idUsuario = 1;

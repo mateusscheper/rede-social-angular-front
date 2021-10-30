@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule} from "@angular/forms";
 import {AuthModule} from "./auth";
 import {authInterceptorProviders} from "./security/auth.interceptor";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {authInterceptorProviders} from "./security/auth.interceptor";
     AuthModule,
     AppRoutingModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, CookieService],
   exports: [],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {TokenDTO} from "../models/tokenDTO.model";
+import {LoginDTO} from "../models/loginDTO.model";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   private TOKEN_KEY = 'auth-token';
   private USER_KEY = 'auth-user';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookieService: CookieService) {
   }
 
   logar(email: string, senha: string): Observable<any> {
@@ -30,32 +31,29 @@ export class AuthService {
   }
 
   deslogar(): void {
-    window.sessionStorage.clear();
+    this.cookieService.deleteAll();
   }
 
-  public salvarToken(token: TokenDTO): void {
-    window.sessionStorage.removeItem(this.TOKEN_KEY);
-    window.sessionStorage.setItem(this.TOKEN_KEY, token.token);
+  public salvarToken(loginDTO: LoginDTO): void {
+    this.cookieService.set(this.TOKEN_KEY, loginDTO.token)
   }
 
   public obterToken(): string | null {
-    return window.sessionStorage.getItem(this.TOKEN_KEY);
+    return this.cookieService.get(this.TOKEN_KEY);
   }
 
   async validarToken(token: string) {
     return this.http.post(this.AUTH_API + 'valido', token).toPromise();
   }
 
-  public salvarUsuarioEmSessao(token: TokenDTO): void {
-    window.sessionStorage.removeItem(this.USER_KEY);
-    window.sessionStorage.setItem(this.USER_KEY, JSON.stringify(token));
+  public salvarUsuarioEmSessao(loginDTO: LoginDTO): void {
+    this.cookieService.set(this.USER_KEY, JSON.stringify(loginDTO.usuario))
   }
 
   public obterUsuario(): any {
-    const user = window.sessionStorage.getItem(this.USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
-    return {};
+    const usuario = this.cookieService.get(this.USER_KEY);
+    if (usuario)
+      return JSON.parse(usuario);
+    return null;
   }
 }

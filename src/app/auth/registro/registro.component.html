@@ -4,8 +4,7 @@
       *ngIf="!sucesso"
       name="form"
       (ngSubmit)="formularioRegistro.form.valid && onSubmit()"
-      #formularioRegistro
-      ngForm
+      #formularioRegistro="ngForm"
       novalidate>
       <div class="form-group">
         <label for="email">E-mail</label>
@@ -38,11 +37,11 @@
           [(ngModel)]="form.senha"
           #password="ngModel"
           required
-          minlength="6"/>
+          minlength="5"/>
         <div class="alert-danger" *ngIf="password.errors && formularioRegistro.submitted">
           <div *ngIf="password.errors.required">Senha requerida</div>
           <div *ngIf="password.errors.minlength">
-            Sua senha precisa ter no mínimo 6 caracteres
+            Sua senha precisa ter no mínimo 5 caracteres
           </div>
         </div>
       </div>
@@ -51,7 +50,7 @@
       </div>
 
       <div class="alert alert-warning" *ngIf="formularioRegistro.submitted && falhou">
-        Oops! Ocorreu um erro ao se registrar. Por favor, tente novamente<br/>{{ mensagemErro }}
+        Oops! Ocorreu um erro ao se registrar. Por favor, tente novamente<br/>
       </div>
     </form>
 
