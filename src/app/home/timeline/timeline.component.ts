@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../services";
 import {Post} from "../../models";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'timeline',
@@ -13,7 +14,7 @@ export class TimelineComponent implements OnInit {
 
   carregando: boolean = true;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,7 +26,6 @@ export class TimelineComponent implements OnInit {
       .subscribe(response => {
           this.posts = response;
           this.carregando = false;
-        },
-        error => console.log(error));
+        });
   }
 }

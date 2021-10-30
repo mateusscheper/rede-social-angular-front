@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FullPostComponent } from './full-post/full-post.component';
+import { FullPostComponent } from './full-post';
 import {FormsModule} from "@angular/forms";
 import {HomeModule} from "../home";
 

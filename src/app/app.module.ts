@@ -5,6 +5,9 @@ import {AppComponent} from './app.component';
 import {HomeModule} from "./home";
 import {PostModule} from "./post";
 import {AppRoutingModule} from "./app-routing.module";
+import {FormsModule} from "@angular/forms";
+import {AuthModule} from "./auth";
+import {authInterceptorProviders} from "./security/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -12,11 +15,13 @@ import {AppRoutingModule} from "./app-routing.module";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HomeModule,
     PostModule,
+    AuthModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   exports: [],
   bootstrap: [AppComponent]
 })

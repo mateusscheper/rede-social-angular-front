@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  title: string;
 
   ngOnInit(): void {
+    this.title = "Rede social";
   }
 }

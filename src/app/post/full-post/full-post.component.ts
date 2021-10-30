@@ -3,7 +3,6 @@ import {Post} from "../../models";
 import {PostService} from "../../services";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Comentario} from "../../models/comentario.model";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-full-post',
@@ -19,11 +18,13 @@ export class FullPostComponent implements OnInit {
   subcomentario: Comentario = new Comentario();
 
   subcomentarioHabilitado: number;
+  title: string;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.title = "Rede social";
     const idPost = +this.route.snapshot.params['idPost'];
     this.postService.buscarPorId(idPost, 1)
       .subscribe(response => {

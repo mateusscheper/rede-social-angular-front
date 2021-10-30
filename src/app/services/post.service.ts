@@ -47,16 +47,17 @@ export class PostService {
 
   private montarUrlBuscarReacoes(idComentario: number, idPost: number, idUsuario: number): string {
     let url = "http://localhost:8080/api/reacao?";
+
     if (idComentario != null)
       url += "idComentario=" + idComentario;
     else
       url += "idPost=" + idPost;
+
     url += "&idUsuario=" + idUsuario;
     return url;
   }
 
   comentar(comentario: Comentario): Observable<any> {
-    console.log(comentario)
     return this.httpClient.post("http://localhost:8080/api/comentario", comentario);
   }
 

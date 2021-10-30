@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostService} from "../../services";
 import {Post} from "../../models";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'novopost',
@@ -20,7 +21,7 @@ export class NovopostComponent implements OnInit {
 
   private imagem: any;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private router: Router) {
   }
 
   ngOnInit(): void {

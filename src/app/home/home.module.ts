@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {DataPostPipe} from "../pipes";
 import {RouterModule} from "@angular/router";
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home';
 
 @NgModule({
   declarations: [
@@ -22,21 +22,20 @@ import { HomeComponent } from './home/home.component';
     DataPostPipe,
     HomeComponent
   ],
-    exports: [
-        TimelineComponent,
-        LeftpanelComponent,
-        RightpanelComponent,
-        NavbarComponent,
-        DataPostPipe
-    ],
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        FormsModule,
-        RouterModule
-    ],
-  providers: [
-  ]
+  exports: [
+    TimelineComponent,
+    LeftpanelComponent,
+    RightpanelComponent,
+    NavbarComponent,
+    DataPostPipe
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule
+  ],
+  providers: []
 })
 export class HomeModule {
 }

@@ -1,0 +1,62 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <form
+      *ngIf="!sucesso"
+      name="form"
+      (ngSubmit)="formularioRegistro.form.valid && onSubmit()"
+      #formularioRegistro
+      ngForm
+      novalidate>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          name="email"
+          ngModel
+          [(ngModel)]="form.email"
+          #email="ngModel"
+          required
+          email/>
+        <div class="alert-danger" *ngIf="email.errors && formularioRegistro.submitted">
+          <div *ngIf="email.errors.required">E-mail requerido</div>
+          <div *ngIf="email.errors.email">
+            E-mail em formato inválido
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          name="password"
+          ngModel
+          [(ngModel)]="form.senha"
+          #password="ngModel"
+          required
+          minlength="6"/>
+        <div class="alert-danger" *ngIf="password.errors && formularioRegistro.submitted">
+          <div *ngIf="password.errors.required">Senha requerida</div>
+          <div *ngIf="password.errors.minlength">
+            Sua senha precisa ter no mínimo 6 caracteres
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Registrar-se</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="formularioRegistro.submitted && falhou">
+        Oops! Ocorreu um erro ao se registrar. Por favor, tente novamente<br/>{{ mensagemErro }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="sucesso">
+      Registrado com sucesso!
+    </div>
+  </div>
+</div>

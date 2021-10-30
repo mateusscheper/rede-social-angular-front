@@ -1,0 +1,65 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <form #formLogin="ngForm"
+          *ngIf="!isLogado"
+          (ngSubmit)="formLogin.form.valid && onSubmit()"
+          novalidate>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          name="emailCampo"
+          [(ngModel)]="formulario.email"
+          required
+          #emailCampo="ngModel"/>
+
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="emailCampo.errors && formLogin.submitted">
+          E-mail obrigatório
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input id="senha"
+               type="password"
+               class="form-control"
+               name="senhaCampo"
+               [(ngModel)]="formulario.senha"
+               required
+               minlength="5"
+               #senhaCampo="ngModel"/>
+
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="senhaCampo.errors && formLogin.submitted">
+          <div *ngIf="senhaCampo.errors.required">Senha obrigatória</div>
+          <div *ngIf="senhaCampo.errors.minlength">A senha precisa ter no mínimo 6 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">
+          Login
+        </button>
+      </div>
+
+      <div class="form-group">
+        <div class="alert alert-danger"
+             role="alert"
+             *ngIf="formLogin.submitted && loginFalhou">
+          Ocorreu um erro ao logar: {{ mensagemErro }}
+        </div>
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isLogado">
+      Logado com sucesso!
+    </div>
+  </div>
+</div>

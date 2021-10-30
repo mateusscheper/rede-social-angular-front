@@ -1,16 +1,16 @@
 <nav class="navbar navbar-light bg-light sticky-top">
   <div class="navbar-brand">
-    <span class="navbar-brand mb-0 h1">{{title}}</span>
+    <span class="navbar-brand mb-0 h1"><a routerLink="/home">{{title}}</a></span>
   </div>
 
   <div class="dropdown dropstart">
     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-      <img src="favicon.ico">
+      <img src="favicon.ico" alt="Botão de perfil com foto do usuário">
     </a>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><a class="dropdown-item" routerLink="/perfil">Meu perfil</a></li>
+      <li><a class="dropdown-item" routerLink="/configuracoes">Configurações</a></li>
+      <li><button class="dropdown-item" (click)="deslogar()">Sair</button></li>
     </ul>
   </div>
 </nav>
