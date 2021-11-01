@@ -1,0 +1,166 @@
+<leftpanel class="col-3"></leftpanel>
+
+<div class="card col-6 border-start border-end">
+  <div class="card-header">
+    <a href="#">
+      <img [src]="post?.criador?.foto"
+           alt="Foto de {{post?.criador?.nome}}"
+           class="avatar"/>
+      {{post?.criador?.nome}}
+    </a>
+    <div class="dropdown float-end">
+      <a aria-expanded="false" class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMenuLink"
+         role="button">
+        ...
+      </a>
+
+      <ul aria-labelledby="dropdownMenuLink" class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+
+    <div class="float-end" style="clear: right!important; font-size: 10px!important;">
+      {{post?.criacao | dataBr}}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <img alt="..."
+         class="card-img-top mb-4"
+         [hidden]="!post?.arquivo"
+         src="{{post?.arquivo}}"
+         style="max-width: 600px; max-height: 600px; object-fit: cover">
+
+    <p class="card-text"
+       [class.text-center]="!post?.arquivo"
+       [hidden]="!post?.descricao"
+       style="clear: left">{{post?.descricao}}</p>
+
+    <div *ngFor="let reacao of post?.reacoes" style="float: left; cursor: pointer">
+      <div>
+        <img [src]="reacao.icone"
+             (click)="reagir(reacao.nome, null, 'post')"
+             alt="Ícone da reação {{reacao.nome}}"
+             style="width: 32px"/>
+
+        <span class="position-absolute translate-middle badge rounded-pill bg-light text-dark"
+              style="border: 1px solid #000000 !important;">
+          {{reacao.quantidade}}
+          <span class="visually-hidden">Quantidade de curtidas</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer text-muted">
+    <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
+      <div class="col-1">
+        <img [src]="comentario.fotoUsuario"
+             alt="Picture of {{comentario.nomeUsuario}}"
+             class="avatar-sm">
+      </div>
+      <div class="col-3">
+        {{comentario.nomeUsuario}}
+      </div>
+      <div class="col-5">
+        {{comentario.descricao}}
+      </div>
+
+      <div class="col-1">
+        <img src="assets/comment.svg"
+             title="Comentar"
+             alt="Comentar"
+             [hidden]="subcomentarioHabilitado == comentario.idComentario"
+             (click)="habilitarSubcomentario(comentario.idComentario)"
+             style="width: 16px; cursor: pointer">
+      </div>
+
+      <div class="col-2" style="display: flex; justify-content: end">
+        <div *ngFor="let reacao of comentario.reacoes">
+          <img [src]="reacao.icone"
+               (click)="reagir(reacao.nome, comentario.idComentario, 'comentario')"
+               title="{{reacao.nome}}"
+               alt="Ícone da reação {{reacao.nome}}"
+               style="width: 16px; cursor: pointer"/>
+        </div>
+      </div>
+
+      <div>
+        <div *ngFor="let subcomentario of comentario.subcomentarios" class="row">
+          <div class="col-1" style="border-right: 1px solid #efe6e6"></div>
+          <div class="col-1" style="border-bottom: 1px solid #efe6e6">
+            <img [src]="subcomentario.fotoUsuario"
+                 alt="Picture of {{subcomentario.nomeUsuario}}"
+                 class="avatar-sm">
+          </div>
+          <div class="col-3" style="border-bottom: 1px solid #efe6e6">
+            {{subcomentario.nomeUsuario}}
+          </div>
+          <div class="col-5" style="border-bottom: 1px solid #efe6e6">
+            {{subcomentario.descricao}}
+          </div>
+
+          <div class="col-2" style="display: flex; justify-content: end; border-bottom: 1px solid #efe6e6">
+            <div *ngFor="let reacao of subcomentario.reacoes">
+              <img [src]="reacao.icone"
+                   (click)="reagir(reacao.nome, subcomentario.idComentario, 'subcomentario')"
+                   title="{{reacao.nome}}"
+                   alt="Ícone da reação {{reacao.nome}}"
+                   style="width: 16px; cursor: pointer"/>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
+          <form #formSubcomentario="ngForm">
+            <div class="input-group">
+              <img src="../../../../assets/nopic.png"
+                   alt="Picture of user"
+                   class="avatar"/>
+
+              <input type="text"
+                     required="required"
+                     [(ngModel)]="subcomentario.descricao"
+                     name="subcomentarioInput"
+                     class="form-control"
+                     id="addSubcomentario"
+                     placeholder="Adicionar comentário">
+
+              <button [disabled]="!formSubcomentario.form.valid"
+                      (click)="subcomentar(comentario.idComentario)"
+                      class="btn btn-outline-primary"
+                      type="button">Comentar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <form #formComentario="ngForm">
+      <div class="input-group">
+        <img src="../../../../assets/nopic.png"
+             alt="Picture of user"
+             class="avatar"/>
+
+        <input type="text"
+               required="required"
+               [(ngModel)]="comentario.descricao"
+               name="comentarioInput"
+               class="form-control"
+               id="addComentario"
+               placeholder="Adicionar comentário">
+
+        <button [disabled]="!formComentario.form.valid"
+                (click)="comentar()"
+                class="btn btn-outline-primary"
+                type="button">Comentar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<rightpanel class="col-3"></rightpanel>

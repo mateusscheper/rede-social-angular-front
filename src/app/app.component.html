@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<navbar *ngIf="router.url != '/login' && router.url != '/registro'" [title]="title"></navbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

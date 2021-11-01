@@ -1,0 +1,116 @@
+<div class="card">
+  <div class="card-header">
+    <a [routerLink]="['/perfil', post.criador?.idUsuario]">
+      <img [src]="post.criador?.foto"
+           alt="Foto de {{post.criador?.nome}}"
+           [title]="post.criador?.nome"
+           class="avatar"/>
+      {{post.criador?.nome}}
+    </a>
+    <div class="dropdown float-end">
+      <a aria-expanded="false" class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMenuLink"
+         role="button">
+        ...
+      </a>
+
+      <ul aria-labelledby="dropdownMenuLink" class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Action</a></li>
+        <li><a class="dropdown-item" href="#">Another action</a></li>
+        <li><a class="dropdown-item" href="#">Something else here</a></li>
+      </ul>
+    </div>
+
+    <div class="float-end" style="clear: right!important; font-size: 10px!important;">
+      {{post.criacao | dataBr}}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <img alt="..."
+         class="card-img-top mb-4"
+         [hidden]="!post.arquivo"
+         src="{{post.arquivo}}"
+         style="max-width: 600px; max-height: 600px; object-fit: cover">
+
+    <p class="card-text"
+       [class.text-center]="!post.arquivo"
+       [hidden]="!post.descricao"
+       style="clear: left">{{post.descricao}}</p>
+
+    <div *ngFor="let reacao of post.reacoes" style="float: left; cursor: pointer">
+      <div>
+        <img [src]="reacao.icone"
+             (click)="reagir(reacao.nome, null)"
+             alt="Ícone da reação {{reacao.nome}}"
+             style="width: 32px"/>
+
+        <span class="position-absolute translate-middle badge rounded-pill bg-light text-dark"
+              style="border: 1px solid #000000 !important;">
+          {{reacao.quantidade}}
+          <span class="visually-hidden">Quantidade de curtidas</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer text-muted">
+    <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
+      <div class="col-1">
+        <a [routerLink]="['/perfil', comentario.idUsuario]">
+          <img [src]="comentario.fotoUsuario"
+               alt="Picture of {{comentario.nomeUsuario}}"
+               [title]="comentario.nomeUsuario"
+               class="avatar-sm">
+        </a>
+      </div>
+      <div class="col-3">
+        <a [routerLink]="['/perfil', comentario.idUsuario]">
+          {{comentario.nomeUsuario}}
+        </a>
+      </div>
+      <div class="col-6">
+        {{comentario.descricao}}
+      </div>
+
+      <div class="col-2" style="display: flex; justify-content: end">
+        <div *ngFor="let reacao of comentario.reacoes">
+          <img [src]="reacao.icone"
+               (click)="reagir(reacao.nome, comentario.idComentario)"
+               alt="Ícone da reação {{reacao.nome}}"
+               style="width: 16px"/>
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="esconderMostrarPostCompleto()">
+      <a [routerLink]="['/post', post.idPost]">Mostrar post completo</a>
+    </div>
+
+    <form #formComentario="ngForm">
+      <div class="input-group">
+        <a routerLink="/perfil">
+          <img [src]="usuario?.foto"
+               alt="Picture of user"
+               [title]="usuario?.nome"
+               class="avatar"/>
+        </a>
+
+        <input type="text"
+               required="required"
+               [(ngModel)]="comentario.descricao"
+               name="comentarioInput"
+               class="form-control"
+               id="addComentario"
+               placeholder="Adicionar comentário">
+
+        <button [disabled]="!formComentario.form.valid"
+                (click)="comentar()"
+                class="btn btn-outline-primary"
+                type="button">Comentar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr class="border-1 border-top border-secondary">

@@ -1,0 +1,55 @@
+<a (click)="init()"
+   [hidden]="esconderBotao"
+   class="btn-novo-post"
+   data-bs-target="#novoPost"
+   data-bs-toggle="modal"
+   href="#">
+  <em class="fa fa-edit"></em>
+</a>
+
+<div aria-hidden="true" aria-labelledby="novoPostLabel" class="modal fade" id="novoPost" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="novoPostLabel">Nova postagem</h5>
+        <button (click)="esconderBotao = false"
+                aria-label="Close"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                type="button"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <textarea [(ngModel)]="post.descricao"
+                      class="form-control"
+                      #descricao="ngModel"
+                      name="descricao"
+                      required="required"></textarea>
+          </div>
+
+          <input type="file"
+                 name="imagem"
+                 accept="image/bmp, image/png, image/jpg, image/jpeg"
+                 (change)="associarImagemAoPost($event)"
+                 required="required"
+                 class="form-control btn btn-primary">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="esconderBotao = false"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                type="button">Cancelar
+        </button>
+        <button (click)="postar()"
+                [disabled]="!descricao.valid"
+                aria-label="Postar"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                type="button">Postar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

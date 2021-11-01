@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {LoginDTO} from "../models/loginDTO.model";
+import {LoginDTO} from "../models/login-dto.model";
 import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
