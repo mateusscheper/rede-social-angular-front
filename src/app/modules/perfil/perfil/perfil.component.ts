@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {UsuarioCompletoDTO} from "../../../models/usuario-completo-dto.model";
 
@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
 
   public usuario: UsuarioCompletoDTO;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -27,6 +27,6 @@ export class PerfilComponent implements OnInit {
 
     this.userService.obterUsuario(id)
       .subscribe(response => this.usuario = response,
-        error => console.log(error));
+        () => this.router.navigate(['/perfil']));
   }
 }

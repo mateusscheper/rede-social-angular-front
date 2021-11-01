@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
     let reacao = this.filtrarReacaoPorNome(idComentario, nomeReacao);
     if (reacao != null) {
       let toggleMarcacao = !reacao.marcado;
-      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, 1)
+      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, this.usuario.idUsuario)
         .subscribe(() => this.buscarReacoes(idComentario));
     }
   }

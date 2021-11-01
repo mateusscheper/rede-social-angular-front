@@ -4,6 +4,9 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
+  host: {
+    class: 'row'
+  },
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

@@ -9,7 +9,7 @@ export class UsuarioCompletoDTO {
     public _dataNascimento?: Date,
     public _quantidadeAmigos?: number,
     public _foto?: string,
-    public _postagens?: Post[]) {
+    public _posts?: Post[]) {
   }
 
   get idUsuario(): number {
@@ -36,7 +36,7 @@ export class UsuarioCompletoDTO {
     return this._foto;
   }
 
-  get postagens(): Post[] {
-    return this._postagens;
+  get posts(): Post[] {
+    return this._posts;
   }
 }

@@ -4,6 +4,9 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registro',
+  host: {
+    class: 'row'
+  },
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })

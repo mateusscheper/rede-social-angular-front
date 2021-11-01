@@ -18,10 +18,14 @@
   </ul>
 </div>
 
-<div class="col-6">
-  <div *ngFor="let post of usuario?.postagens">
+<div class="col-6"
+     [class.text-center]="!usuario?.posts"
+     [class.align-self-center]="!usuario?.posts">
+  <div *ngFor="let post of usuario?.posts">
     <post [post]="post"></post>
   </div>
+
+  <span *ngIf="!usuario?.posts">Nenhum post encontrado.</span>
 
 </div>
 

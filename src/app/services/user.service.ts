@@ -13,7 +13,7 @@ export class UserService {
   obterUsuario(id: string): Observable<any> {
     let url = "http://localhost:8080/api/usuario";
     if (id)
-      url += "?idUsuario=" + id;
+      url += "/" + id;
 
     return this.httpClient.get(url);
   }
