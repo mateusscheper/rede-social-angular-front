@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let token = this.authService.obterToken();
-    if (token != null) {
+    const token = this.authService.obterToken();
+    if (token) {
       this.authService.validarToken(token)
         .then(() => this.router.navigate(['/home']), err => {
           console.log(err)
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.logar(this.formulario.email, this.formulario.senha)
       .subscribe(data => {
+          console.log(data)
           this.authService.salvarToken(data);
           this.authService.salvarUsuarioEmSessao(data);
 

@@ -4,7 +4,8 @@ export class UsuarioSimplesDTO {
     public _idUsuario?: number,
     public _nome?: string,
     public _email?: string,
-    public _foto?: string) {
+    public _foto?: string,
+    public _amigos?: UsuarioSimplesDTO[]) {
   }
 
   get idUsuario(): number {
@@ -21,5 +22,9 @@ export class UsuarioSimplesDTO {
 
   get foto(): string {
     return this._foto;
+  }
+
+  get amigos(): UsuarioSimplesDTO[] {
+    return this._amigos;
   }
 }

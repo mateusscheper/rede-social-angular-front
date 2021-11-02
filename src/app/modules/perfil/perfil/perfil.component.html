@@ -1,34 +1,64 @@
 <div class="col-3">
-  <div class="card">
-    <img [src]="usuario?.foto" alt="Foto do usuário" class="card-img-top">
+  <div style="position: fixed; width: min-content">
+    <div class="card">
+      <img [src]="usuario?.foto" alt="Foto do usuário" class="card-img-top">
 
-    <div class="card-body">
-      {{usuario?.nome}}
-      {{usuario?.email}}
+      <div class="card-body">
+        {{usuario?.nome}}
+        {{usuario?.email}}
+      </div>
     </div>
-  </div>
 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <a [routerLink]="['/perfil', usuario?.idUsuario, 'amigos']">Amigos ({{usuario?.quantidadeAmigos}})</a>
-    </li>
-    <li class="list-group-item">
-      <a [routerLink]="['/perfil', usuario?.idUsuario, 'fotos']">Fotos</a>
-    </li>
-  </ul>
+    <div class="d-grid gap-2">
+      <button type="button"
+              class="btn btn-outline-primary"
+              [hidden]="isMesmoUsuario() || !exibirBotaoAdicionar"
+              (click)="adicionar()">
+        <em class="fas fa-user-plus"></em> Adicionar</button>
+
+      <button type="button"
+              class="btn btn-outline-primary"
+              [hidden]="isMesmoUsuario() || !exibirBotaoDesfazerAmizade"
+              (click)="desfazerAmizade()">
+        <em class="fas fa-user-minus"></em> Desfazer amizade</button>
+
+      <button type="button"
+              class="btn btn-outline-primary"
+              [hidden]="isMesmoUsuario() || !exibirBotaoAceitar"
+              (click)="aceitarAmizade()">
+        <em class="fas fa-user-check"></em> Aceitar amizade</button>
+
+      <button type="button"
+              class="btn btn-outline-primary"
+              [hidden]="isMesmoUsuario() || !exibirBotaoCancelarAdicionar"
+              (click)="cancelarAdicionar()">
+        <em class="fas fa-user-times"></em> Cancelar convite</button>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a [routerLink]="['/perfil', usuario?.idUsuario, 'amigos']">Amigos ({{usuario?.quantidadeAmigos}})</a>
+      </li>
+      <li class="list-group-item">
+        <a [routerLink]="['/perfil', usuario?.idUsuario, 'fotos']">Fotos</a>
+      </li>
+    </ul>
+  </div>
 </div>
 
-<div class="col-6"
-     [class.text-center]="!usuario?.posts"
-     [class.align-self-center]="!usuario?.posts">
+<div class="col-6" style="height: calc(100vh - 70px)"
+     [class.text-center]="naoPossuiPosts()"
+     [class.align-self-center]="naoPossuiPosts()">
   <div *ngFor="let post of usuario?.posts">
     <post [post]="post"></post>
   </div>
 
-  <span *ngIf="!usuario?.posts">Nenhum post encontrado.</span>
+  <span *ngIf="naoPossuiPosts()">Nenhum post encontrado.</span>
 
 </div>
 
 <div class="col-3">
-  right
+  <div style="position: fixed">
+    right
+  </div>
 </div>

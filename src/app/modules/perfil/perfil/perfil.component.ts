@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {UsuarioCompletoDTO} from "../../../models/usuario-completo-dto.model";
+import {AuthService} from "../../../services";
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +18,15 @@ export class PerfilComponent implements OnInit {
 
   public usuario: UsuarioCompletoDTO;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  exibirBotaoAdicionar = false;
+
+  exibirBotaoDesfazerAmizade = false;
+
+  exibirBotaoAceitar = false;
+
+  exibirBotaoCancelarAdicionar = false;
+
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -26,7 +35,68 @@ export class PerfilComponent implements OnInit {
       this.id = +id;
 
     this.userService.obterUsuario(id)
-      .subscribe(response => this.usuario = response,
+      .subscribe(response => {
+          this.usuario = response;
+          this.verificarIsUsuarioAmigo();
+        },
         () => this.router.navigate(['/perfil']));
+  }
+
+  private verificarIsUsuarioAmigo() {
+    if (this.usuario?.statusAmizade) {
+      if (this.usuario?.statusAmizade == 'Amigos')
+        this.exibirBotaoDesfazerAmizade = true;
+      else if (this.usuario?.statusAmizade == 'Pendente de aceite')
+        this.exibirBotaoAceitar = true;
+      else if (this.usuario?.statusAmizade == 'Pendente de resposta')
+        this.exibirBotaoCancelarAdicionar = true;
+    } else {
+      this.exibirBotaoAdicionar = true;
+    }
+    console.log('this.exibirBotaoDesfazerAmizade', this.exibirBotaoDesfazerAmizade)
+    console.log('this.exibirBotaoAceitar', this.exibirBotaoAceitar)
+    console.log('this.exibirBotaoCancelarAdicionar', this.exibirBotaoCancelarAdicionar)
+    console.log('this.exibirBotaoAdicionar', this.exibirBotaoAdicionar)
+  }
+
+  naoPossuiPosts(): boolean {
+    return !this.usuario?.posts || this.usuario?.posts?.length < 1;
+  }
+
+  isMesmoUsuario(): boolean {
+    const usuario = this.authService.obterUsuario();
+    return this.usuario?.idUsuario == usuario.idUsuario;
+  }
+
+  adicionar() {
+    this.userService.adicionar(this.usuario.idUsuario)
+      .subscribe(() => {
+        this.exibirBotaoAdicionar = false;
+        this.exibirBotaoCancelarAdicionar = true;
+      })
+  }
+
+  desfazerAmizade() {
+    this.userService.desfazerAmizade(this.usuario.idUsuario)
+      .subscribe(() => {
+        this.exibirBotaoDesfazerAmizade = false;
+        this.exibirBotaoAdicionar = true;
+      })
+  }
+
+  aceitarAmizade() {
+    this.userService.aceitarAmizade(this.usuario.idUsuario)
+      .subscribe(() => {
+        this.exibirBotaoAceitar = false;
+        this.exibirBotaoDesfazerAmizade = true;
+      })
+  }
+
+  cancelarAdicionar() {
+    this.userService.cancelarAdicionar(this.usuario.idUsuario)
+      .subscribe(() => {
+        this.exibirBotaoCancelarAdicionar = false;
+        this.exibirBotaoAdicionar = true;
+      })
   }
 }
