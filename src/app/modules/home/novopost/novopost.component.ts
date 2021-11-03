@@ -21,7 +21,7 @@ export class NovopostComponent implements OnInit {
 
   private imagem: any;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(private postService: PostService) {
   }
 
   ngOnInit(): void {

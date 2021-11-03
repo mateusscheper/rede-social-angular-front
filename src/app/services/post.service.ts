@@ -4,13 +4,14 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Reagir} from "../models/reagir.model";
 import {Comentario} from "../models/comentario.model";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
   buscarPosts(idUsuario: number): Observable<any> {
@@ -18,7 +19,8 @@ export class PostService {
   }
 
   postar(post: Post, imagem: any): Observable<any> {
-    post.idUsuario = 1;
+    const usuario = this.authService.obterUsuario();
+    post.idUsuario = usuario.idUsuario;
     const formData = new FormData();
 
     formData.append("imagem", imagem);

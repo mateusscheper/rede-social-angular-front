@@ -38,8 +38,7 @@ export class PerfilComponent implements OnInit {
       .subscribe(response => {
           this.usuario = response;
           this.verificarIsUsuarioAmigo();
-        },
-        () => this.router.navigate(['/perfil']));
+        });
   }
 
   private verificarIsUsuarioAmigo() {
@@ -53,10 +52,6 @@ export class PerfilComponent implements OnInit {
     } else {
       this.exibirBotaoAdicionar = true;
     }
-    console.log('this.exibirBotaoDesfazerAmizade', this.exibirBotaoDesfazerAmizade)
-    console.log('this.exibirBotaoAceitar', this.exibirBotaoAceitar)
-    console.log('this.exibirBotaoCancelarAdicionar', this.exibirBotaoCancelarAdicionar)
-    console.log('this.exibirBotaoAdicionar', this.exibirBotaoAdicionar)
   }
 
   naoPossuiPosts(): boolean {
