@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   title: string = "";
   usuario: UsuarioSimplesDTO;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {

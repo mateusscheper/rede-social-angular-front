@@ -89,9 +89,9 @@
     <form #formComentario="ngForm">
       <div class="input-group">
         <a routerLink="/perfil">
-          <img [src]="usuario?.foto"
+          <img [src]="this.authService.obterUsuario()?.foto"
                alt="Picture of user"
-               [title]="usuario?.nome"
+               [title]="this.authService.obterUsuario()?.nome"
                class="avatar"/>
         </a>
 

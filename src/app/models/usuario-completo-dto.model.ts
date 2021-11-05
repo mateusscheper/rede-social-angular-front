@@ -37,6 +37,10 @@ export class UsuarioCompletoDTO {
     return this._foto;
   }
 
+  set foto(value: string) {
+    this._foto = value;
+  }
+
   get statusAmizade(): string {
     return this._statusAmizade;
   }

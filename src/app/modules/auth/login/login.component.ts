@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit {
     const token = this.authService.obterToken();
     if (token) {
       this.authService.validarToken(token)
-        .then(() => this.router.navigate(['/home']), err => {
-          console.log(err)
-        })
+        .then(() => this.router.navigate(['/home']))
         .catch()
     }
   }
@@ -40,7 +38,6 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.logar(this.formulario.email, this.formulario.senha)
       .subscribe(data => {
-          console.log(data)
           this.authService.salvarToken(data);
           this.authService.salvarUsuarioEmSessao(data);
 

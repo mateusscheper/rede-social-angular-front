@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {LoginDTO} from "../models/login-dto.model";
 import {CookieService} from "ngx-cookie-service";
+import {UsuarioSimplesDTO} from "../models/usuario-simples.model";
 
 @Injectable({
   providedIn: 'root'
@@ -50,10 +51,23 @@ export class AuthService {
     this.cookieService.set(this.USER_KEY, JSON.stringify(loginDTO.usuario))
   }
 
+  private salvarUsuarioDTOEmSessao(usuarioDTO: UsuarioSimplesDTO): void {
+    this.cookieService.set(this.USER_KEY, JSON.stringify(usuarioDTO))
+  }
+
   public obterUsuario(): any {
     const usuario = this.cookieService.get(this.USER_KEY);
     if (usuario)
       return JSON.parse(usuario);
     return null;
+  }
+
+  public atualizarFotoUsuario(foto: string) {
+    let usuarioString = this.cookieService.get(this.USER_KEY);
+    if (usuarioString) {
+      let usuario = JSON.parse(usuarioString);
+      usuario.foto = foto;
+      this.salvarUsuarioDTOEmSessao(usuario);
+    }
   }
 }

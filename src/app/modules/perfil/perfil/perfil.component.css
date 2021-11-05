@@ -1,0 +1,16 @@
+.btn-trocar {
+  position: absolute;
+  left: calc(50% - 36px);
+  top: calc(50% - 66px);
+  display: none;
+}
+
+.img-perfil:hover {
+    opacity: 0.5;
+}
+
+.img-perfil:hover + .btn-trocar, .btn-trocar:hover {
+    display: block;
+}
+
+

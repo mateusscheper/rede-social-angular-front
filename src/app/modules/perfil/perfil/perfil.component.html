@@ -1,8 +1,17 @@
 <div class="col-3">
   <div style="position: fixed; width: min-content">
     <div class="card">
-      <img [src]="usuario?.foto" alt="Foto do usuário" class="card-img-top">
 
+      <div>
+        <img [src]="usuario?.foto"
+             alt="Foto do usuário"
+             class="card-img-top img-perfil">
+
+        <button type="button"
+                class="btn btn-outline-primary btn-trocar"
+                data-bs-toggle="modal" data-bs-target="#trocarFoto">Trocar
+        </button>
+      </div>
       <div class="card-body">
         {{usuario?.nome}}
         {{usuario?.email}}
@@ -14,25 +23,29 @@
               class="btn btn-outline-primary"
               [hidden]="isMesmoUsuario() || !exibirBotaoAdicionar"
               (click)="adicionar()">
-        <em class="fas fa-user-plus"></em> Adicionar</button>
+        <em class="fas fa-user-plus"></em> Adicionar
+      </button>
 
       <button type="button"
               class="btn btn-outline-primary"
               [hidden]="isMesmoUsuario() || !exibirBotaoDesfazerAmizade"
               (click)="desfazerAmizade()">
-        <em class="fas fa-user-minus"></em> Desfazer amizade</button>
+        <em class="fas fa-user-minus"></em> Desfazer amizade
+      </button>
 
       <button type="button"
               class="btn btn-outline-primary"
               [hidden]="isMesmoUsuario() || !exibirBotaoAceitar"
               (click)="aceitarAmizade()">
-        <em class="fas fa-user-check"></em> Aceitar amizade</button>
+        <em class="fas fa-user-check"></em> Aceitar amizade
+      </button>
 
       <button type="button"
               class="btn btn-outline-primary"
               [hidden]="isMesmoUsuario() || !exibirBotaoCancelarAdicionar"
               (click)="cancelarAdicionar()">
-        <em class="fas fa-user-times"></em> Cancelar convite</button>
+        <em class="fas fa-user-times"></em> Cancelar convite
+      </button>
     </div>
 
     <ul class="list-group list-group-flush">
@@ -60,5 +73,32 @@
 <div class="col-3">
   <div style="position: fixed">
     right
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="trocarFotoLabel" class="modal fade" id="trocarFoto" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="trocarFotoLabel">Trocar foto</h5>
+        <button aria-label="Close"
+                class="btn-close"
+                name="fecharModal"
+                #fecharModal
+                data-bs-dismiss="modal"
+                type="button"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <input type="file"
+                 name="inputFoto"
+                 #inputFoto
+                 (change)="trocarFotoPerfil($event)"
+                 accept="image/bmp, image/png, image/jpg, image/jpeg"
+                 required="required"
+                 class="form-control btn btn-primary">
+        </form>
+      </div>
+    </div>
   </div>
 </div>

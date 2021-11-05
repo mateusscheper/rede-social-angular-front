@@ -36,8 +36,7 @@ export class FullPostComponent implements OnInit {
             this.comentario.idPost = this.post.idPost;
             this.comentario.idUsuario = 1;
           }
-        },
-        error => console.log(error));
+        });
   }
 
   reagir(nome: string, idComentario: number, tipo: string) {
@@ -67,8 +66,7 @@ export class FullPostComponent implements OnInit {
           this.comentario.idPost = this.post.idPost;
           this.comentario.idUsuario = 1;
           this.buscarComentarios();
-        },
-        error => console.log(error));
+        });
   }
 
   subcomentar(idComentario: number) {
@@ -80,8 +78,7 @@ export class FullPostComponent implements OnInit {
           this.atualizarSubcomentarios(idComentario, 1);
           this.subcomentario = new Comentario();
           this.subcomentarioHabilitado = null;
-        },
-        error => console.log(error))
+        })
   }
 
   private atualizarSubcomentarios(idComentario: number, idUsuario: number) {
@@ -161,8 +158,6 @@ export class FullPostComponent implements OnInit {
 
   private buscarComentarios() {
     this.postService.buscarComentarios(this.post.idPost, 1, 100)
-      .subscribe(response => {
-        this.post.comentarios = response;
-      }, error => console.log(error));
+      .subscribe(response => this.post.comentarios = response);
   }
 }

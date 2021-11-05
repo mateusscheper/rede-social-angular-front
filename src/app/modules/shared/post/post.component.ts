@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Post, Reacao} from "../../../models";
 import {Comentario} from "../../../models/comentario.model";
 import {AuthService, PostService} from "../../../services";
-import {UsuarioSimplesDTO} from "../../../models/usuario-simples.model";
 
 @Component({
   selector: 'post',
@@ -15,17 +14,14 @@ export class PostComponent implements OnInit {
   post: Post = new Post();
 
   comentario: Comentario = new Comentario();
-  usuario: UsuarioSimplesDTO;
 
-  constructor(private postService: PostService, private authService: AuthService) {
+  constructor(private postService: PostService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.obterUsuario();
-
     if (this.post.idPost != null) {
       this.comentario.idPost = this.post.idPost;
-      this.comentario.idUsuario = this.usuario.idUsuario;
+      this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
       this.buscarReacoes(null);
       this.buscarComentarios();
     }
@@ -35,7 +31,7 @@ export class PostComponent implements OnInit {
     let reacao = this.filtrarReacaoPorNome(idComentario, nomeReacao);
     if (reacao != null) {
       let toggleMarcacao = !reacao.marcado;
-      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, this.usuario.idUsuario)
+      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
         .subscribe(() => this.buscarReacoes(idComentario));
     }
   }
@@ -45,10 +41,9 @@ export class PostComponent implements OnInit {
       .subscribe(() => {
           this.comentario = new Comentario();
           this.comentario.idPost = this.post.idPost;
-          this.comentario.idUsuario = this.usuario.idUsuario;
+          this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
           this.buscarComentarios();
-        },
-        error => console.log(error));
+        });
   }
 
   public esconderMostrarPostCompleto(): boolean {
@@ -86,14 +81,12 @@ export class PostComponent implements OnInit {
   }
 
   private buscarComentarios() {
-    this.postService.buscarComentarios(this.post.idPost, this.usuario.idUsuario, 3)
-      .subscribe(response => {
-        this.post.comentarios = response;
-      }, error => console.log(error));
+    this.postService.buscarComentarios(this.post.idPost, this.authService.obterUsuario().idUsuario, 3)
+      .subscribe(response => this.post.comentarios = response);
   }
 
   private buscarReacoes(idComentario: number) {
-    this.postService.buscarReacoes(this.post.idPost, idComentario, this.usuario.idUsuario)
+    this.postService.buscarReacoes(this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
       .subscribe(response => {
         if (idComentario != null) {
           for (let c of this.post.comentarios) {

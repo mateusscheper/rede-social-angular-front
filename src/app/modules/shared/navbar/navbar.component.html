@@ -5,11 +5,11 @@
 
   <div class="dropdown dropstart">
     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-      <img [src]="usuario?.foto" class="avatar" alt="Botão de perfil com foto do usuário">
+      <img [src]="authService.obterUsuario()?.foto" class="avatar" alt="Botão de perfil com foto do usuário">
     </a>
     <ul class="dropdown-menu">
-      <li>{{usuario?.nome}}</li>
-      <li>{{usuario?.email}}</li>
+      <li>{{authService.obterUsuario()?.nome}}</li>
+      <li>{{authService.obterUsuario()?.email}}</li>
       <li>
         <a class="dropdown-item" routerLink="/perfil">Meu perfil</a>
       </li>

@@ -35,4 +35,10 @@ export class UserService {
   cancelarAdicionar(idUsuario: number): Observable<any> {
     return this.httpClient.post(this.URL_API_USUARIO + "/" + idUsuario + "/cancelar", {});
   }
+
+  trocarFotoPerfil(file: any, idUsuario: number):Observable<any> {
+    const formData = new FormData();
+    formData.append("imagem", file);
+    return this.httpClient.patch(this.URL_API_USUARIO + "/" + idUsuario + "/foto", formData, {responseType: "text"});
+  }
 }
