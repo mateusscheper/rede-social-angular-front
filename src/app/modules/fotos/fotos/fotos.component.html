@@ -1,0 +1,55 @@
+<div class="col-3">
+  <div class="card">
+    <img [src]="usuario?.foto"
+         alt="Foto do usuário"
+         class="card-img-top">
+
+    <div class="card-body">
+      {{usuario?.nome}}
+      {{usuario?.email}}
+    </div>
+  </div>
+</div>
+<div class="col-9">
+  <span class="sem-foto" *ngIf="usuario?.fotos.length < 1">Nenhuma foto ainda.</span>
+
+  <div id="fotos"
+       *ngIf="usuario?.fotos.length > 0"
+       class="carousel slide carousel-dark"
+       style="height: 600px"
+       data-bs-ride="carousel"
+       data-bs-interval="false">
+    <div class="carousel-inner">
+      <div class="carousel-item"
+           *ngFor="let foto of usuario?.fotos; let i = index"
+           [attr.data-index]="i"
+           [class.active]="i == 0">
+        <img [src]="foto"
+             class="d-block w-100"
+             style="max-height: 600px; object-fit: contain"
+             alt="Foto {{i + 1}} do álbum">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#fotos" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#fotos" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+  </div>
+
+  <div>
+    <div class="galeria">
+      <img *ngFor="let foto of usuario?.fotos; let i = index"
+           [src]="foto"
+           data-bs-target="#fotos"
+           attr.data-bs-slide-to="{{i}}"
+           [class.active]="i == 0"
+           alt="Foto do álbum do usuário"
+           class="img-thumbnail img-fluid img-galeria"/>
+    </div>
+  </div>
+</div>

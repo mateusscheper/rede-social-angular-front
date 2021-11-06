@@ -11,6 +11,7 @@ import {authInterceptorProviders} from "./security/auth.interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {SharedModule} from "./modules/shared";
 import {PerfilModule} from "./modules/perfil";
+import {FotosModule} from "./modules/fotos";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {PerfilModule} from "./modules/perfil";
     FormsModule,
     SharedModule,
     PerfilModule,
+    FotosModule,
     HomeModule,
     PostModule,
     AuthModule,

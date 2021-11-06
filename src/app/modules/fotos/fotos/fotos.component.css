@@ -1,0 +1,24 @@
+.carousel {
+  border: #c9c9c9 1px solid;
+  border-radius: 2px;
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(3, 5vw);
+  grid-gap: 15px;
+}
+
+.img-galeria {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.sem-foto {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 48px);
+}

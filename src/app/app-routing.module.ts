@@ -4,12 +4,14 @@ import {PostRoutes} from "./modules/post/post-routing.module";
 import {HomeRoutes} from "./modules/home/home-routing.module";
 import {AuthRoutes} from "./modules/auth/auth-routing.module";
 import {PerfilRoutes} from "./modules/perfil/perfil-routing.module";
+import {FotosRoutes} from "./modules/fotos/fotos-routing.module";
 
 export const routes: Routes = [
   ...HomeRoutes,
   ...PostRoutes,
   ...AuthRoutes,
   ...PerfilRoutes,
+  ...FotosRoutes,
   {
     path: '',
     redirectTo: '/login',
