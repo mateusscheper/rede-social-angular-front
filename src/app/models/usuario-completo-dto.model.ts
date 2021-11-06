@@ -1,4 +1,5 @@
 import {Post} from "./post.model";
+import {UsuarioSimplesDTO} from "./usuario-simples.model";
 
 export class UsuarioCompletoDTO {
 
@@ -11,7 +12,8 @@ export class UsuarioCompletoDTO {
     public _foto?: string,
     public _statusAmizade?: string,
     public _posts?: Post[],
-    public _fotos?: string[]) {
+    public _fotos?: string[],
+    public _amigos?: UsuarioSimplesDTO[]) {
   }
 
   get idUsuario(): number {
@@ -52,5 +54,9 @@ export class UsuarioCompletoDTO {
 
   get fotos(): string[] {
     return this._fotos;
+  }
+
+  get amigos(): UsuarioSimplesDTO[] {
+    return this._amigos;
   }
 }

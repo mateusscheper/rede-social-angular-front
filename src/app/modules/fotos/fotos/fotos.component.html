@@ -9,7 +9,17 @@
       {{usuario?.email}}
     </div>
   </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <a [routerLink]="['/perfil', usuario?.idUsuario, 'amigos']">Amigos ({{usuario?.quantidadeAmigos}})</a>
+    </li>
+    <li class="list-group-item">
+      <a [routerLink]="['/perfil', usuario?.idUsuario, 'fotos']">Fotos</a>
+    </li>
+  </ul>
 </div>
+
 <div class="col-9">
   <span class="sem-foto" *ngIf="usuario?.fotos.length < 1">Nenhuma foto ainda.</span>
 

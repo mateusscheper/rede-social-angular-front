@@ -1,0 +1,34 @@
+<div class="col-3">
+  <div class="card">
+    <img [src]="usuario?.foto"
+         alt="Foto do usuário"
+         class="card-img-top">
+
+    <div class="card-body">
+      {{usuario?.nome}}
+      {{usuario?.email}}
+    </div>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <a [routerLink]="['/perfil', usuario?.idUsuario, 'amigos']">Amigos ({{usuario?.quantidadeAmigos}})</a>
+    </li>
+    <li class="list-group-item">
+      <a [routerLink]="['/perfil', usuario?.idUsuario, 'fotos']">Fotos</a>
+    </li>
+  </ul>
+</div>
+
+<div class="col-9">
+  <div class="lista">
+    <a *ngFor="let amigo of usuario?.amigos; let i = index"
+       [routerLink]="['/perfil', amigo.idUsuario]">
+
+      <img [src]="amigo.foto"
+           alt="Foto de perfil do amigo"
+           title="{{amigo.nome}} ({{amigo.email}})"
+           class="img-thumbnail img-fluid img-lista"/>
+    </a>
+  </div>
+</div>

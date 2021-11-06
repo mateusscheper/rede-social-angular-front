@@ -12,6 +12,7 @@ import {CookieService} from "ngx-cookie-service";
 import {SharedModule} from "./modules/shared";
 import {PerfilModule} from "./modules/perfil";
 import {FotosModule} from "./modules/fotos";
+import {AmigosModule} from "./modules/amigos/amigos.module";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {FotosModule} from "./modules/fotos";
     SharedModule,
     PerfilModule,
     FotosModule,
+    AmigosModule,
     HomeModule,
     PostModule,
     AuthModule,

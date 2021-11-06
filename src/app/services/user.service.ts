@@ -45,4 +45,8 @@ export class UserService {
   obterUsuarioComFotos(idUsuario: number): Observable<any> {
     return this.httpClient.get(this.URL_API_USUARIO + "/" + idUsuario + "/foto");
   }
+
+  obterUsuarioComAmigos(idUsuario: number): Observable<any> {
+    return this.httpClient.get(this.URL_API_USUARIO + "/" + idUsuario + "/amigo");
+  }
 }
