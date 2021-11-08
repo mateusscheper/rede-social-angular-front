@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   host: {
-    class: 'row'
+    class: 'container-fluid'
   },
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

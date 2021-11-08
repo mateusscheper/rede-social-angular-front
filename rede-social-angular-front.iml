@@ -7,5 +7,6 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="21c0c1d061" level="application" />
   </component>
 </module>

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PostService} from "../../../services";
+import {AuthService, PostService} from "../../../services";
 import {Post} from "../../../models";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'timeline',
@@ -14,7 +13,7 @@ export class TimelineComponent implements OnInit {
 
   carregando: boolean = true;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(private postService: PostService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -22,7 +21,7 @@ export class TimelineComponent implements OnInit {
   }
 
   carregarPosts() {
-    this.postService.buscarPosts(1)
+    this.postService.buscarPosts(this.authService.obterUsuario().idUsuario)
       .subscribe(response => {
           this.posts = response;
           this.carregando = false;

@@ -1,3 +1,31 @@
 <div style="position: fixed">
-  left
+  <form class="d-flex mb-2">
+    <input class="form-control"
+           type="search"
+           name="nome"
+           [(ngModel)]="query"
+           autocomplete="off"
+           placeholder="Buscar pessoas"
+           (keydown.enter)="buscarPessoas()"
+           aria-label="Buscar pessoas">
+  </form>
+
+  <div>
+    <div class="card" *ngFor="let pessoa of resultado">
+      <a [routerLink]="['/perfil', pessoa.idUsuario]">
+        <div class="row m-0">
+          <div class="col-4 text-center mt-1">
+            <img [src]="pessoa.foto" alt="Foto de {{pessoa.nome}}" style="max-width: 64px"/>
+          </div>
+
+          <div class="col-8 p-0">
+            <div class="card-body p-0">
+              <h5 class="card-title">{{pessoa.nome}}</h5>
+              <p class="card-text email">{{pessoa.email}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>

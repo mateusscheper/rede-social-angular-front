@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 export class RegistroComponent implements OnInit {
 
   form: any = {
+    nome: null,
     email: null,
     senha: null
   };
@@ -20,6 +21,8 @@ export class RegistroComponent implements OnInit {
   sucesso = false;
 
   falhou = false;
+
+  erros: string[];
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -35,13 +38,16 @@ export class RegistroComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const {email, senha} = this.form;
+    const {nome, email, senha} = this.form;
 
-    this.authService.registrar(email, senha)
+    this.authService.registrar(nome, email, senha)
       .subscribe(() => {
           this.sucesso = true;
           this.falhou = false;
         },
-        () => this.falhou = true);
+        error => {
+          this.erros = error.error.errors
+          this.falhou = true
+        });
   }
 }

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {UsuarioSimplesDTO} from "../../../models/usuario-simples.model";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'leftpanel',
@@ -7,10 +9,23 @@ import {Component, OnInit} from '@angular/core';
 })
 export class LeftpanelComponent implements OnInit {
 
-  constructor() {
+  query: any;
+
+  resultado: UsuarioSimplesDTO[];
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
   }
 
+  buscarPessoas() {
+    if (this.query.length > 2) {
+      this.userService.buscarUsuarioPorNomeOuEmail(this.query)
+        .subscribe(response => {
+          console.log(response)
+          this.resultado = response
+        })
+    }
+  }
 }

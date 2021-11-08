@@ -1,20 +1,20 @@
-<div class="col-9 d-flex">
-  <div class="card text-center m-5" style="width: 100% !important; height: 100% !important;">
-    <img src="../../../../assets/default-logo.png"
-         style="align-self: center; max-width: 600px"
-         alt="Imagem da rede social">
+<div class="row">
+  <div class="col-9 d-flex">
+    <div class="card text-center m-5" style="width: 100% !important; height: 100% !important;">
+      <img src="../../../../assets/default-logo.png"
+           style="align-self: center; max-width: 600px"
+           alt="Imagem da rede social">
 
-    <div class="card-body">
-      <h5 class="card-title">Rede social</h5>
-      <p class="card-text">Algo sobre rede social</p>
-      <a href="#" class="card-link">Link 1</a>
-      <a href="#" class="card-link">Link 2</a>
+      <div class="card-body">
+        <h5 class="card-title">Rede social</h5>
+        <p class="card-text">Algo sobre rede social</p>
+        <a href="#" class="card-link">Link 1</a>
+        <a href="#" class="card-link">Link 2</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="col-3" style="align-self: center">
-  <div class="card card-container m-5">
+  <div class="col-3" style="align-self: center">
     <form #formLogin="ngForm"
           *ngIf="!isLogado"
           (ngSubmit)="formLogin.form.valid && onSubmit()"
@@ -58,9 +58,13 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mt-2">
         <button class="btn btn-primary btn-block">
-          Login
+          ACESSAR
+        </button>
+        <button [routerLink]="['/registro']"
+                class="btn btn-outline-secondary btn-block float-end">
+          Registrar
         </button>
       </div>
 

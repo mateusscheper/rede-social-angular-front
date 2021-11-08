@@ -7,6 +7,22 @@
       #formularioRegistro="ngForm"
       novalidate>
       <div class="form-group">
+        <label for="email">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          class="form-control"
+          name="nome"
+          ngModel
+          [(ngModel)]="form.nome"
+          #nome="ngModel"
+          required/>
+        <div class="alert-danger" *ngIf="nome.errors && formularioRegistro.submitted">
+          <div *ngIf="nome.errors.required">Nome obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="email">E-mail</label>
         <input
           id="email"
@@ -49,13 +65,15 @@
         <button class="btn btn-primary btn-block">Registrar-se</button>
       </div>
 
-      <div class="alert alert-warning" *ngIf="formularioRegistro.submitted && falhou">
-        Oops! Ocorreu um erro ao se registrar. Por favor, tente novamente<br/>
+      <div class="alert alert-danger" *ngIf="formularioRegistro.submitted && falhou">
+        <span *ngFor="let erro of erros">{{erro}}</span>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="sucesso">
-      Registrado com sucesso!
+    <div class="alert alert-primary" *ngIf="sucesso">
+      <span>Registrado com sucesso!</span>
+      <br><br>
+      <a [routerLink]="['/login']">Clique aqui para acessar.</a>
     </div>
   </div>
 </div>

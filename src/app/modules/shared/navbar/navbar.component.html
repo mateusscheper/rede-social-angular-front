@@ -1,24 +1,24 @@
 <nav class="navbar navbar-light bg-light sticky-top">
-  <div class="navbar-brand">
-    <span class="navbar-brand mb-0 h1"><a routerLink="/home">{{title}}</a></span>
-  </div>
+  <div class="container-fluid">
+    <a class="navbar-brand mb-0 h1" routerLink="/home">{{title}}</a>
 
-  <div class="dropdown dropstart">
-    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-      <img [src]="authService.obterUsuario()?.foto" class="avatar" alt="Botão de perfil com foto do usuário">
-    </a>
-    <ul class="dropdown-menu">
-      <li>{{authService.obterUsuario()?.nome}}</li>
-      <li>{{authService.obterUsuario()?.email}}</li>
-      <li>
-        <a class="dropdown-item" routerLink="/perfil">Meu perfil</a>
-      </li>
-      <li>
-        <a class="dropdown-item" routerLink="/configuracoes">Configurações</a>
-      </li>
-      <li>
-        <button class="dropdown-item" (click)="deslogar()">Sair</button>
-      </li>
-    </ul>
+    <div class="dropdown dropstart">
+      <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+        <img [src]="authService.obterUsuario()?.foto" class="avatar" alt="Botão de perfil com foto do usuário">
+      </a>
+      <ul class="dropdown-menu">
+        <li>{{authService.obterUsuario()?.nome}}</li>
+        <li>{{authService.obterUsuario()?.email}}</li>
+        <li>
+          <a class="dropdown-item" routerLink="/perfil">Meu perfil</a>
+        </li>
+        <li>
+          <a class="dropdown-item" routerLink="/configuracoes">Configurações</a>
+        </li>
+        <li>
+          <button class="dropdown-item" (click)="deslogar()">Sair</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

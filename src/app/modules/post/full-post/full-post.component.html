@@ -116,8 +116,8 @@
         <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
           <form #formSubcomentario="ngForm">
             <div class="input-group">
-              <img src="../../../../assets/nopic.png"
-                   alt="Picture of user"
+              <img [src]="authService.obterUsuario()?.foto"
+                   alt="Foto do usuário logado"
                    class="avatar"/>
 
               <input type="text"
@@ -141,8 +141,8 @@
 
     <form #formComentario="ngForm">
       <div class="input-group">
-        <img src="../../../../assets/nopic.png"
-             alt="Picture of user"
+        <img [src]="authService.obterUsuario()?.foto"
+             alt="Foto do usuário logado"
              class="avatar"/>
 
         <input type="text"

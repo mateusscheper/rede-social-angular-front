@@ -49,4 +49,8 @@ export class UserService {
   obterUsuarioComAmigos(idUsuario: number): Observable<any> {
     return this.httpClient.get(this.URL_API_USUARIO + "/" + idUsuario + "/amigo");
   }
+
+  buscarUsuarioPorNomeOuEmail(query: string): Observable<any> {
+    return this.httpClient.get(this.URL_API_USUARIO + "/busca?q=" + query);
+  }
 }

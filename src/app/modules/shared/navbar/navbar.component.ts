@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   }
 
   deslogar() {
-    this.authService.deslogar()
+    this.authService.deslogar();
     this.router.navigate(['/login'])
   }
 }

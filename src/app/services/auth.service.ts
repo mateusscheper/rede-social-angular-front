@@ -24,15 +24,18 @@ export class AuthService {
     });
   }
 
-  registrar(email: string, senha: string): Observable<any> {
+  registrar(nome: string, email: string, senha: string): Observable<any> {
     return this.http.post(this.AUTH_API + 'registro', {
+      nome,
       email,
       senha
     });
   }
 
   deslogar(): void {
+    console.log(this.cookieService.getAll());
     this.cookieService.deleteAll();
+    console.log(this.cookieService.getAll());
   }
 
   public salvarToken(loginDTO: LoginDTO): void {

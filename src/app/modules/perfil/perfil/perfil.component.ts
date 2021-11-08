@@ -118,4 +118,18 @@ export class PerfilComponent implements OnInit {
           this.fecharModal.nativeElement.click();
         });
   }
+
+  obterRotaAmigos() {
+    if (this.id)
+      return '/perfil/' + this.id + '/amigos';
+    else
+      return '/amigos';
+  }
+
+  obterRotaFotos() {
+    if (this.id)
+      return '/perfil/' + this.id + '/fotos';
+    else
+      return '/fotos';
+  }
 }

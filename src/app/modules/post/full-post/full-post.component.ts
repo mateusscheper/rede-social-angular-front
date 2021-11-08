@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Post} from "../../../models";
-import {PostService} from "../../../services";
-import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService, PostService} from "../../../services";
+import {ActivatedRoute} from "@angular/router";
 import {Comentario} from "../../../models/comentario.model";
 
 @Component({
@@ -23,27 +23,27 @@ export class FullPostComponent implements OnInit {
   subcomentarioHabilitado: number;
   title: string;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {
+  constructor(private postService: PostService, private route: ActivatedRoute, public authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.title = "Rede social";
     const idPost = +this.route.snapshot.params['idPost'];
-    this.postService.buscarPorId(idPost, 1)
+    this.postService.buscarPorId(idPost, this.authService.obterUsuario().idUsuario)
       .subscribe(response => {
-          this.post = response;
-          if (this.post != null) {
-            this.comentario.idPost = this.post.idPost;
-            this.comentario.idUsuario = 1;
-          }
-        });
+        this.post = response;
+        if (this.post != null) {
+          this.comentario.idPost = this.post.idPost;
+          this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
+        }
+      });
   }
 
   reagir(nome: string, idComentario: number, tipo: string) {
     let reacao = this.filtrarReacaoPorTipoENome(tipo, idComentario, nome);
     if (reacao != null) {
       let toggleMarcacao = !reacao.marcado;
-      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, 1)
+      this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
         .subscribe(() => this.buscarReacoes(idComentario, tipo));
     }
   }
@@ -62,23 +62,23 @@ export class FullPostComponent implements OnInit {
   comentar() {
     this.postService.comentar(this.comentario)
       .subscribe(() => {
-          this.comentario = new Comentario();
-          this.comentario.idPost = this.post.idPost;
-          this.comentario.idUsuario = 1;
-          this.buscarComentarios();
-        });
+        this.comentario = new Comentario();
+        this.comentario.idPost = this.post.idPost;
+        this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
+        this.buscarComentarios();
+      });
   }
 
   subcomentar(idComentario: number) {
-    this.subcomentario.idUsuario = 1;
+    this.subcomentario.idUsuario = this.authService.obterUsuario().idUsuario;
     this.subcomentario.idComentario = idComentario;
 
     this.postService.comentar(this.subcomentario)
       .subscribe(() => {
-          this.atualizarSubcomentarios(idComentario, 1);
-          this.subcomentario = new Comentario();
-          this.subcomentarioHabilitado = null;
-        })
+        this.atualizarSubcomentarios(idComentario, this.authService.obterUsuario().idUsuario);
+        this.subcomentario = new Comentario();
+        this.subcomentarioHabilitado = null;
+      })
   }
 
   private atualizarSubcomentarios(idComentario: number, idUsuario: number) {
@@ -131,7 +131,7 @@ export class FullPostComponent implements OnInit {
   }
 
   private buscarReacoes(idComentario: number, tipo: string) {
-    this.postService.buscarReacoes(this.post.idPost, idComentario, 1)
+    this.postService.buscarReacoes(this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
       .subscribe(response => {
         if (tipo === 'post')
           this.post.reacoes = response;
@@ -157,7 +157,7 @@ export class FullPostComponent implements OnInit {
   }
 
   private buscarComentarios() {
-    this.postService.buscarComentarios(this.post.idPost, 1, 100)
+    this.postService.buscarComentarios(this.post.idPost, this.authService.obterUsuario().idUsuario, 100)
       .subscribe(response => this.post.comentarios = response);
   }
 }
