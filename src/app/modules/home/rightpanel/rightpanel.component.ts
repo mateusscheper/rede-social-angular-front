@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {NotificacaoService} from "../../../services/notificacao.service";
+import {NotificacaoDTO} from "../../../models/notificacao-dto.model";
 
 @Component({
   selector: 'rightpanel',
@@ -7,10 +9,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RightpanelComponent implements OnInit {
 
-  constructor() {
+  notificacoes: NotificacaoDTO[];
+
+  constructor(private notificacaoService: NotificacaoService) {
   }
 
   ngOnInit(): void {
+    this.notificacaoService.consultarNotificacoes()
+      .subscribe(response => this.notificacoes = response)
   }
-
 }

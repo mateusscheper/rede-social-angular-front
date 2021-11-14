@@ -8,11 +8,12 @@
 </div>
 
 <div [hidden]="carregando"
-     *ngFor="let post of posts">
-  <post [post]="post"></post>
+     *ngFor="let post of posts"
+     class="mb-5">
+  <post class="mb-5" [post]="post"></post>
 </div>
 
-<div [hidden]="!carregando && posts.length != 0" class="text-center">
+<div [hidden]="carregando && posts.length != 0" class="text-center">
   <span>Parece que você não tem posts para interagir.</span>
   <br>
   <span>Que tal </span><a href="#">buscar conteúdo?</a>

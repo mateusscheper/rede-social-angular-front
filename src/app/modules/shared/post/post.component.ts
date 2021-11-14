@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post, Reacao} from "../../../models";
+import {Post} from "../../../models";
 import {Comentario} from "../../../models/comentario.model";
 import {AuthService, PostService} from "../../../services";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'post',
@@ -11,64 +12,91 @@ import {AuthService, PostService} from "../../../services";
 export class PostComponent implements OnInit {
 
   @Input()
-  post: Post = new Post();
+  post: Post;
 
   comentario: Comentario = new Comentario();
 
-  constructor(private postService: PostService, public authService: AuthService) {
+  subcomentario: Comentario = new Comentario();
+
+  subcomentarioHabilitado: number;
+
+  constructor(private postService: PostService, private route: ActivatedRoute, public authService: AuthService) {
   }
 
   ngOnInit(): void {
-    if (this.post.idPost != null) {
+    if (this.post != null) {
       this.comentario.idPost = this.post.idPost;
       this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
-      this.buscarReacoes(null);
-      this.buscarComentarios();
     }
   }
 
-  public reagir(nomeReacao: string, idComentario: number) {
-    let reacao = this.filtrarReacaoPorNome(idComentario, nomeReacao);
+
+  reagir(nome: string, idComentario: number, tipo: string) {
+    let reacao = this.filtrarReacaoPorTipoENome(tipo, idComentario, nome);
     if (reacao != null) {
       let toggleMarcacao = !reacao.marcado;
       this.postService.reagir(reacao.idReacao, toggleMarcacao, this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
-        .subscribe(() => this.buscarReacoes(idComentario));
+        .subscribe(() => this.buscarReacoes(idComentario, tipo));
     }
   }
 
-  public comentar() {
+  private filtrarReacaoPorTipoENome(tipo: string, idComentario: number, nome: string) {
+    let reacao;
+    if (tipo === 'subcomentario')
+      reacao = this.filtrarReacaoPorNomeSubcomentario(idComentario, nome);
+    else if (tipo === 'comentario')
+      reacao = this.filtrarReacaoPorNomeComentario(idComentario, nome);
+    else if (tipo === 'post')
+      reacao = this.filtrarReacaoPorNomePost(nome);
+    return reacao;
+  }
+
+  comentar() {
     this.postService.comentar(this.comentario)
-      .subscribe(() => {
-          this.comentario = new Comentario();
-          this.comentario.idPost = this.post.idPost;
-          this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
-          this.buscarComentarios();
-        });
+      .subscribe(() => this.atualizarComentarios());
   }
 
-  public esconderMostrarPostCompleto(): boolean {
-    if (this.post.comentarios == null)
-      return true;
+  private atualizarComentarios() {
+    this.comentario = new Comentario();
+    this.comentario.idPost = this.post.idPost;
+    this.comentario.idUsuario = this.authService.obterUsuario().idUsuario;
+    this.buscarComentarios();
+  }
 
-    for (let c of this.post.comentarios) {
-      if (c.quantidadeComentariosPost > 3)
-        return false;
+  subcomentar(idComentario: number) {
+    this.subcomentario.idUsuario = this.authService.obterUsuario().idUsuario;
+    this.subcomentario.idComentario = idComentario;
+
+    this.postService.comentar(this.subcomentario)
+      .subscribe(() => this.atualizarSubcomentarios(idComentario, this.authService.obterUsuario().idUsuario))
+  }
+
+  private atualizarSubcomentarios(idComentario: number, idUsuario: number) {
+    this.postService.buscarSubcomentarios(this.subcomentario.idComentario, idUsuario)
+      .subscribe(response => {
+        let comentarioPai = this.post.comentarios.find(c => c.idComentario == idComentario);
+        comentarioPai.subcomentarios = response;
+      })
+    this.subcomentario = new Comentario();
+    this.subcomentarioHabilitado = null;
+  }
+
+  habilitarSubcomentario(idComentario: number) {
+    if (this.subcomentario.descricao != null && this.subcomentario.descricao.length > 0) {
+      if (confirm("Há um comentário em edição. Tem certeza de que deseja descartá-lo?")) {
+        this.subcomentario = new Comentario();
+        this.subcomentarioHabilitado = idComentario;
+      }
+    } else {
+      this.subcomentarioHabilitado = idComentario;
     }
-    return true;
   }
 
-  private filtrarReacaoPorNome(idComentario: number, nomeReacao: string) {
-    if (idComentario != null)
-      return this.obterReacaoComentario(nomeReacao, idComentario);
-    else
-      return this.obterReacaoPost(nomeReacao);
-  }
-
-  private obterReacaoComentario(nomeReacao: string, idComentario: number): Reacao {
-    for (let c of this.post.comentarios) {
-      if (c.idComentario == idComentario) {
-        for (let reacao of c.reacoes) {
-          if (reacao.nome == nomeReacao)
+  private filtrarReacaoPorNomeComentario(idComentario: number, nome: string) {
+    for (let comentario of this.post.comentarios) {
+      if (comentario.idComentario == idComentario) {
+        for (let reacao of comentario.reacoes) {
+          if (reacao.nome == nome)
             return reacao;
         }
       }
@@ -76,26 +104,52 @@ export class PostComponent implements OnInit {
     return null;
   }
 
-  private obterReacaoPost(nome: string): Reacao {
-    return this.post.reacoes.find(r => r.nome == nome);
+  private filtrarReacaoPorNomePost(nome: string) {
+    return this.post.reacoes.find(r => r.nome === nome);
+  }
+
+  private filtrarReacaoPorNomeSubcomentario(idComentario: number, nome: string) {
+    for (let comentario of this.post.comentarios) {
+      for (let subcomentario of comentario.subcomentarios) {
+        if (subcomentario.idComentario == idComentario) {
+          for (let reacao of subcomentario.reacoes) {
+            if (reacao.nome == nome)
+              return reacao;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  private buscarReacoes(idComentario: number, tipo: string) {
+    this.postService.buscarReacoes(this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
+      .subscribe(response => {
+        if (tipo === 'post')
+          this.post.reacoes = response;
+        else if (tipo === 'comentario')
+          this.atualizarReacoesComentario(idComentario, response);
+        else if (tipo === 'subcomentario')
+          this.atualizarReacoesSubcomentario(idComentario, response);
+      })
+  }
+
+  private atualizarReacoesComentario(idComentario: number, response) {
+    let subcomentario = this.post.comentarios.find(c => c.idComentario === idComentario);
+    if (subcomentario != null)
+      subcomentario.reacoes = response;
+  }
+
+  private atualizarReacoesSubcomentario(idComentario: number, response) {
+    for (let comentario of this.post.comentarios) {
+      let subcomentario = comentario.subcomentarios.find(c => c.idComentario === idComentario);
+      if (subcomentario != null)
+        subcomentario.reacoes = response;
+    }
   }
 
   private buscarComentarios() {
-    this.postService.buscarComentarios(this.post.idPost, this.authService.obterUsuario().idUsuario, 3)
+    this.postService.buscarComentarios(this.post.idPost, this.authService.obterUsuario().idUsuario, 100)
       .subscribe(response => this.post.comentarios = response);
-  }
-
-  private buscarReacoes(idComentario: number) {
-    this.postService.buscarReacoes(this.post.idPost, idComentario, this.authService.obterUsuario().idUsuario)
-      .subscribe(response => {
-        if (idComentario != null) {
-          for (let c of this.post.comentarios) {
-            if (c.idComentario == idComentario)
-              c.reacoes = response;
-          }
-        } else {
-          this.post.reacoes = response;
-        }
-      })
   }
 }

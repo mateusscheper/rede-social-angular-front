@@ -20,7 +20,7 @@ export class LeftpanelComponent implements OnInit {
   }
 
   buscarPessoas() {
-    if (this.query.length > 2) {
+    if (this.query.length > 1) {
       this.userService.buscarUsuarioPorNomeOuEmail(this.query)
         .subscribe(response => {
           console.log(response)

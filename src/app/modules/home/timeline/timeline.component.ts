@@ -21,7 +21,7 @@ export class TimelineComponent implements OnInit {
   }
 
   carregarPosts() {
-    this.postService.buscarPosts(this.authService.obterUsuario().idUsuario)
+    this.postService.buscarPosts(this.authService.obterUsuario()?.idUsuario)
       .subscribe(response => {
           this.posts = response;
           this.carregando = false;

@@ -1,11 +1,10 @@
-<div class="card">
+<div class="card border-start border-end">
   <div class="card-header">
-    <a [routerLink]="['/perfil', post.criador?.idUsuario]">
-      <img [src]="post.criador?.foto"
-           alt="Foto de {{post.criador?.nome}}"
-           [title]="post.criador?.nome"
+    <a href="#">
+      <img [src]="post?.criador?.foto"
+           alt="Foto de {{post?.criador?.nome}}"
            class="avatar"/>
-      {{post.criador?.nome}}
+      {{post?.criador?.nome}}
     </a>
     <div class="dropdown float-end">
       <a aria-expanded="false" class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMenuLink"
@@ -21,26 +20,28 @@
     </div>
 
     <div class="float-end" style="clear: right!important; font-size: 10px!important;">
-      {{post.criacao | dataBr}}
+      <a [routerLink]="['/post', post?.idPost]">
+        {{post?.criacao | dataBr}}
+      </a>
     </div>
   </div>
 
   <div class="card-body">
     <img alt="..."
          class="card-img-top mb-4"
-         [hidden]="!post.arquivo"
-         src="{{post.arquivo}}"
+         [hidden]="!post?.arquivo"
+         src="{{post?.arquivo}}"
          style="max-width: 600px; max-height: 600px; object-fit: cover">
 
     <p class="card-text"
-       [class.text-center]="!post.arquivo"
-       [hidden]="!post.descricao"
-       style="clear: left">{{post.descricao}}</p>
+       [class.text-center]="!post?.arquivo"
+       [hidden]="!post?.descricao"
+       style="clear: left">{{post?.descricao}}</p>
 
-    <div *ngFor="let reacao of post.reacoes" style="float: left; cursor: pointer">
+    <div *ngFor="let reacao of post?.reacoes" style="float: left; cursor: pointer">
       <div>
         <img [src]="reacao.icone"
-             (click)="reagir(reacao.nome, null)"
+             (click)="reagir(reacao.nome, null, 'post')"
              alt="Ícone da reação {{reacao.nome}}"
              style="width: 32px"/>
 
@@ -51,49 +52,98 @@
         </span>
       </div>
     </div>
-
   </div>
+
   <div class="card-footer text-muted">
     <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
       <div class="col-1">
-        <a [routerLink]="['/perfil', comentario.idUsuario]">
-          <img [src]="comentario.fotoUsuario"
-               alt="Picture of {{comentario.nomeUsuario}}"
-               [title]="comentario.nomeUsuario"
-               class="avatar-sm">
-        </a>
+        <img [src]="comentario.fotoUsuario"
+             alt="Picture of {{comentario.nomeUsuario}}"
+             class="avatar-sm">
       </div>
       <div class="col-3">
-        <a [routerLink]="['/perfil', comentario.idUsuario]">
-          {{comentario.nomeUsuario}}
-        </a>
+        {{comentario.nomeUsuario}}
       </div>
-      <div class="col-6">
+      <div class="col-5">
         {{comentario.descricao}}
+      </div>
+
+      <div class="col-1">
+        <img src="assets/comment.svg"
+             title="Comentar"
+             alt="Comentar"
+             [hidden]="subcomentarioHabilitado == comentario.idComentario"
+             (click)="habilitarSubcomentario(comentario.idComentario)"
+             style="width: 16px; cursor: pointer">
       </div>
 
       <div class="col-2" style="display: flex; justify-content: end">
         <div *ngFor="let reacao of comentario.reacoes">
           <img [src]="reacao.icone"
-               (click)="reagir(reacao.nome, comentario.idComentario)"
+               (click)="reagir(reacao.nome, comentario.idComentario, 'comentario')"
+               title="{{reacao.nome}}"
                alt="Ícone da reação {{reacao.nome}}"
-               style="width: 16px"/>
+               style="width: 16px; cursor: pointer"/>
+        </div>
+      </div>
+
+      <div>
+        <div *ngFor="let subcomentario of comentario.subcomentarios" class="row">
+          <div class="col-1" style="border-right: 1px solid #efe6e6"></div>
+          <div class="col-1" style="border-bottom: 1px solid #efe6e6">
+            <img [src]="subcomentario.fotoUsuario"
+                 alt="Picture of {{subcomentario.nomeUsuario}}"
+                 class="avatar-sm">
+          </div>
+          <div class="col-3" style="border-bottom: 1px solid #efe6e6">
+            {{subcomentario.nomeUsuario}}
+          </div>
+          <div class="col-5" style="border-bottom: 1px solid #efe6e6">
+            {{subcomentario.descricao}}
+          </div>
+
+          <div class="col-2" style="display: flex; justify-content: end; border-bottom: 1px solid #efe6e6">
+            <div *ngFor="let reacao of subcomentario.reacoes">
+              <img [src]="reacao.icone"
+                   (click)="reagir(reacao.nome, subcomentario.idComentario, 'subcomentario')"
+                   title="{{reacao.nome}}"
+                   alt="Ícone da reação {{reacao.nome}}"
+                   style="width: 16px; cursor: pointer"/>
+            </div>
+          </div>
+        </div>
+
+        <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
+          <form #formSubcomentario="ngForm">
+            <div class="input-group">
+              <img [src]="authService.obterUsuario()?.foto"
+                   alt="Foto do usuário logado"
+                   class="avatar"/>
+
+              <input type="text"
+                     required="required"
+                     [(ngModel)]="subcomentario.descricao"
+                     name="subcomentarioInput"
+                     class="form-control"
+                     id="addSubcomentario"
+                     placeholder="Adicionar comentário">
+
+              <button [disabled]="!formSubcomentario.form.valid"
+                      (click)="subcomentar(comentario.idComentario)"
+                      class="btn btn-outline-primary"
+                      type="button">Comentar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
 
-    <div [hidden]="esconderMostrarPostCompleto()">
-      <a [routerLink]="['/post', post.idPost]">Mostrar post completo</a>
-    </div>
-
     <form #formComentario="ngForm">
       <div class="input-group">
-        <a routerLink="/perfil">
-          <img [src]="this.authService.obterUsuario()?.foto"
-               alt="Foto do usuário logado"
-               [title]="this.authService.obterUsuario()?.nome"
-               class="avatar"/>
-        </a>
+        <img [src]="authService.obterUsuario()?.foto"
+             alt="Foto do usuário logado"
+             class="avatar"/>
 
         <input type="text"
                required="required"
@@ -112,5 +162,3 @@
     </form>
   </div>
 </div>
-
-<hr class="border-1 border-top border-secondary">

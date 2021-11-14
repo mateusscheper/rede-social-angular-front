@@ -1,3 +1,8 @@
 <div style="position: fixed">
-  right
+  <div class="card mb-1 p-1" *ngFor="let notificacao of notificacoes">
+    <a [routerLink]="notificacao.url">
+      <p class="card-title">{{notificacao.conteudo}}</p>
+      <p class="card-subtitle float-end">{{notificacao.horario | dataBr}}</p>
+    </a>
+  </div>
 </div>

@@ -61,7 +61,7 @@
 <div class="col-6" style="height: calc(100vh - 70px)"
      [class.text-center]="naoPossuiPosts()"
      [class.align-self-center]="naoPossuiPosts()">
-  <div *ngFor="let post of usuario?.posts">
+  <div class="mb-5" *ngFor="let post of usuario?.posts">
     <post [post]="post"></post>
   </div>
 
