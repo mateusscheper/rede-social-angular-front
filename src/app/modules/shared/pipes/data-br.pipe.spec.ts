@@ -1,4 +1,4 @@
-import { DataBrPipe } from './data-br.pipe';
+import {DataBrPipe} from './data-br.pipe';
 
 describe('DataBrPipe', () => {
   it('create an instance', () => {

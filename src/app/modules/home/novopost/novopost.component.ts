@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {PostService} from "../../../services";
 import {Post} from "../../../models";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'novopost',

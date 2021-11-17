@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Post} from "../../../models";
 import {AuthService, PostService} from "../../../services";
 import {ActivatedRoute} from "@angular/router";
-import {Comentario} from "../../../models/comentario.model";
 
 @Component({
   selector: 'app-full-post',

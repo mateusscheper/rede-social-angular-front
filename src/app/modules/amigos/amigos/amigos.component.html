@@ -1,23 +1,5 @@
 <div class="col-3">
-  <div class="card">
-    <img [src]="usuario?.foto"
-         alt="Foto do usuário"
-         class="card-img-top">
-
-    <div class="card-body">
-      {{usuario?.nome}}
-      {{usuario?.email}}
-    </div>
-  </div>
-
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <a [routerLink]="['/perfil', usuario?.idUsuario, 'amigos']">Amigos ({{usuario?.quantidadeAmigos}})</a>
-    </li>
-    <li class="list-group-item">
-      <a [routerLink]="['/perfil', usuario?.idUsuario, 'fotos']">Fotos</a>
-    </li>
-  </ul>
+  <card-perfil [usuario]="usuario"></card-perfil>
 </div>
 
 <div class="col-9">

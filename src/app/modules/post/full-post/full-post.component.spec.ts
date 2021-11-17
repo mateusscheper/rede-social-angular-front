@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FullPostComponent } from './full-post.component';
+import {FullPostComponent} from './full-post.component';
 
 describe('FullPostComponent', () => {
   let component: FullPostComponent;
@@ -8,9 +8,9 @@ describe('FullPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FullPostComponent ]
+      declarations: [FullPostComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

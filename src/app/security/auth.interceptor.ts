@@ -1,10 +1,10 @@
 import {
   HTTP_INTERCEPTORS,
+  HttpErrorResponse,
   HttpEvent,
-  HttpInterceptor,
   HttpHandler,
-  HttpRequest,
-  HttpErrorResponse
+  HttpInterceptor,
+  HttpRequest
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 

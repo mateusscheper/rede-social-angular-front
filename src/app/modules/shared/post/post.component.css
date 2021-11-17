@@ -5,3 +5,8 @@ hr {
   border: 0;
   opacity: 0.25;
 }
+
+.no-right-border {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}

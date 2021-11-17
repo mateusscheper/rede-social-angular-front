@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UsuarioCompletoDTO} from "../../../models/usuario-completo-dto.model";
-import {UserService} from "../../../services/user.service";
+import {AuthService, UserService} from "../../../services";
 import {ActivatedRoute} from "@angular/router";
-import {AuthService} from "../../../services";
 
 @Component({
   selector: 'app-fotos',

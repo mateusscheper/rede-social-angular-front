@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UsuarioSimplesDTO} from "../../../models/usuario-simples.model";
-import {UserService} from "../../../services/user.service";
+import {UserService} from "../../../services";
 
 @Component({
   selector: 'leftpanel',

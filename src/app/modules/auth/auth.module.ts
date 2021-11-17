@@ -11,12 +11,12 @@ import {RouterModule} from "@angular/router";
     LoginComponent,
     RegistroComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        SharedModule,
-        RouterModule
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    RouterModule
+  ]
 })
 export class AuthModule {
 }

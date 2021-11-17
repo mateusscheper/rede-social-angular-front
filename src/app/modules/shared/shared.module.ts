@@ -5,12 +5,14 @@ import {NavbarComponent} from "./navbar";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {DataBrPipe} from "./pipes";
+import {ReportModalComponent} from './report-modal';
 
 @NgModule({
   declarations: [
     PostComponent,
     NavbarComponent,
-    DataBrPipe
+    DataBrPipe,
+    ReportModalComponent
   ],
   exports: [
     PostComponent,

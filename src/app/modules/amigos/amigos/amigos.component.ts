@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UsuarioCompletoDTO} from "../../../models/usuario-completo-dto.model";
 import {ActivatedRoute} from "@angular/router";
-import {UserService} from "../../../services/user.service";
-import {AuthService} from "../../../services";
+import {AuthService, UserService} from "../../../services";
 
 @Component({
   selector: 'app-amigos',
@@ -18,7 +17,8 @@ export class AmigosComponent implements OnInit {
 
   usuario: UsuarioCompletoDTO;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

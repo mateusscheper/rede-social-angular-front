@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Post} from "../../../models";
 import {Comentario} from "../../../models/comentario.model";
 import {AuthService, PostService} from "../../../services";
-import {ActivatedRoute} from "@angular/router";
+import {ReportModalComponent} from "../report-modal";
 
 @Component({
   selector: 'post',
@@ -14,13 +14,16 @@ export class PostComponent implements OnInit {
   @Input()
   post: Post;
 
+  @ViewChild('reportModal')
+  reportModal: ReportModalComponent;
+
   comentario: Comentario = new Comentario();
 
   subcomentario: Comentario = new Comentario();
 
   subcomentarioHabilitado: number;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, public authService: AuthService) {
+  constructor(private postService: PostService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -151,5 +154,13 @@ export class PostComponent implements OnInit {
   private buscarComentarios() {
     this.postService.buscarComentarios(this.post.idPost, this.authService.obterUsuario().idUsuario, 100)
       .subscribe(response => this.post.comentarios = response);
+  }
+
+  reportar() {
+    this.reportModal.init();
+  }
+
+  desabilitarReport() {
+    this.post.possuiReport = true;
   }
 }

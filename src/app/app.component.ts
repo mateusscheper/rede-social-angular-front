@@ -10,7 +10,8 @@ export class AppComponent implements OnInit {
 
   title: string;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {
+  }
 
   ngOnInit(): void {
     this.title = 'Rede social';

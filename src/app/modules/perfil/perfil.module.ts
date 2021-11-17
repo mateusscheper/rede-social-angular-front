@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 import {PerfilComponent} from './perfil';
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
-import {SharedModule} from "../shared";
+import {CardPerfilComponent, SharedModule} from "../shared";
 
 @NgModule({
   declarations: [
-    PerfilComponent
+    PerfilComponent,
+    CardPerfilComponent
   ],
   imports: [
     RouterModule,
@@ -16,6 +17,7 @@ import {SharedModule} from "../shared";
     SharedModule
   ],
   exports: [
+    CardPerfilComponent
   ],
 })
 export class PerfilModule {

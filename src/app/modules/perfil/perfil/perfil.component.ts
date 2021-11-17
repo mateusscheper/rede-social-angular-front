@@ -1,8 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../../services/user.service";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService, UserService} from "../../../services";
 import {UsuarioCompletoDTO} from "../../../models/usuario-completo-dto.model";
-import {AuthService} from "../../../services";
 
 @Component({
   selector: 'app-perfil',
@@ -24,15 +23,7 @@ export class PerfilComponent implements OnInit {
   @ViewChild('fecharModal')
   fecharModal: ElementRef;
 
-  exibirBotaoAdicionar = false;
-
-  exibirBotaoDesfazerAmizade = false;
-
-  exibirBotaoAceitar = false;
-
-  exibirBotaoCancelarAdicionar = false;
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -41,64 +32,11 @@ export class PerfilComponent implements OnInit {
       this.id = +id;
 
     this.userService.obterUsuario(id)
-      .subscribe(response => {
-        this.usuario = response;
-        this.verificarIsUsuarioAmigo();
-      });
-  }
-
-  private verificarIsUsuarioAmigo() {
-    if (this.usuario?.statusAmizade) {
-      if (this.usuario?.statusAmizade == 'Amigos')
-        this.exibirBotaoDesfazerAmizade = true;
-      else if (this.usuario?.statusAmizade == 'Pendente de aceite')
-        this.exibirBotaoAceitar = true;
-      else if (this.usuario?.statusAmizade == 'Pendente de resposta')
-        this.exibirBotaoCancelarAdicionar = true;
-    } else {
-      this.exibirBotaoAdicionar = true;
-    }
+      .subscribe(response => this.usuario = response);
   }
 
   naoPossuiPosts(): boolean {
     return !this.usuario?.posts || this.usuario?.posts?.length < 1;
-  }
-
-  isMesmoUsuario(): boolean {
-    const usuario = this.authService.obterUsuario();
-    return this.usuario?.idUsuario == usuario.idUsuario;
-  }
-
-  adicionar() {
-    this.userService.adicionar(this.usuario.idUsuario)
-      .subscribe(() => {
-        this.exibirBotaoAdicionar = false;
-        this.exibirBotaoCancelarAdicionar = true;
-      })
-  }
-
-  desfazerAmizade() {
-    this.userService.desfazerAmizade(this.usuario.idUsuario)
-      .subscribe(() => {
-        this.exibirBotaoDesfazerAmizade = false;
-        this.exibirBotaoAdicionar = true;
-      })
-  }
-
-  aceitarAmizade() {
-    this.userService.aceitarAmizade(this.usuario.idUsuario)
-      .subscribe(() => {
-        this.exibirBotaoAceitar = false;
-        this.exibirBotaoDesfazerAmizade = true;
-      })
-  }
-
-  cancelarAdicionar() {
-    this.userService.cancelarAdicionar(this.usuario.idUsuario)
-      .subscribe(() => {
-        this.exibirBotaoCancelarAdicionar = false;
-        this.exibirBotaoAdicionar = true;
-      })
   }
 
   trocarFotoPerfil(event) {
@@ -117,19 +55,5 @@ export class PerfilComponent implements OnInit {
           this.inputFoto.nativeElement.value = "";
           this.fecharModal.nativeElement.click();
         });
-  }
-
-  obterRotaAmigos() {
-    if (this.id)
-      return '/perfil/' + this.id + '/amigos';
-    else
-      return '/amigos';
-  }
-
-  obterRotaFotos() {
-    if (this.id)
-      return '/perfil/' + this.id + '/fotos';
-    else
-      return '/fotos';
   }
 }

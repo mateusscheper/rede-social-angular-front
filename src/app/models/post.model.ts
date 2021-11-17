@@ -14,6 +14,7 @@ export class Post {
     public arquivo?: string,
     public comentarios?: Comentario[],
     public descricao?: string,
+    public possuiReport?: boolean,
     public imagem?: File) {
   }
 }

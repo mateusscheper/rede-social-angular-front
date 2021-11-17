@@ -7,10 +7,10 @@ import {RouterModule} from "@angular/router";
   declarations: [
     FotosComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule
-    ]
+  imports: [
+    CommonModule,
+    RouterModule
+  ]
 })
 export class FotosModule {
 }

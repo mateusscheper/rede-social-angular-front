@@ -1,22 +1,28 @@
 <div class="card border-start border-end">
   <div class="card-header">
-    <a href="#">
+    <a [routerLink]="['/perfil', post?.criador?.idUsuario]">
       <img [src]="post?.criador?.foto"
            alt="Foto de {{post?.criador?.nome}}"
            class="avatar"/>
       {{post?.criador?.nome}}
     </a>
-    <div class="dropdown float-end">
-      <a aria-expanded="false" class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMenuLink"
-         role="button">
-        ...
+
+    <div class="float-end">
+      <a (click)="reportar()"
+         *ngIf="!post.possuiReport"
+         data-bs-target="#novoReport"
+         data-bs-toggle="modal"
+         href="#"
+         style="cursor: pointer"
+         title="Reportar">
+        <em class="fas fa-flag"></em>
       </a>
 
-      <ul aria-labelledby="dropdownMenuLink" class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-      </ul>
+      <app-report-modal #reportModal [tipo]="'post'"
+                        (onReportEnviado)="desabilitarReport()"
+                        *ngIf="!post.possuiReport"
+                        [id]="post?.idPost">
+      </app-report-modal>
     </div>
 
     <div class="float-end" style="clear: right!important; font-size: 10px!important;">
@@ -57,10 +63,13 @@
   <div class="card-footer text-muted">
     <div *ngFor="let comentario of post?.comentarios" class="row mb-2">
       <div class="col-1">
-        <img [src]="comentario.fotoUsuario"
-             alt="Picture of {{comentario.nomeUsuario}}"
-             class="avatar-sm">
+        <a [routerLink]="['/perfil', comentario.idUsuario]">
+          <img [src]="comentario.fotoUsuario"
+               alt="Picture of {{comentario.nomeUsuario}}"
+               class="avatar-sm"/>
+        </a>
       </div>
+
       <div class="col-3">
         {{comentario.nomeUsuario}}
       </div>
@@ -91,10 +100,13 @@
         <div *ngFor="let subcomentario of comentario.subcomentarios" class="row">
           <div class="col-1" style="border-right: 1px solid #efe6e6"></div>
           <div class="col-1" style="border-bottom: 1px solid #efe6e6">
-            <img [src]="subcomentario.fotoUsuario"
-                 alt="Picture of {{subcomentario.nomeUsuario}}"
-                 class="avatar-sm">
+            <a [routerLink]="['/perfil', subcomentario.idUsuario]">
+              <img [src]="subcomentario.fotoUsuario"
+                   alt="Picture of {{subcomentario.nomeUsuario}}"
+                   class="avatar-sm"/>
+            </a>
           </div>
+
           <div class="col-3" style="border-bottom: 1px solid #efe6e6">
             {{subcomentario.nomeUsuario}}
           </div>
@@ -116,9 +128,11 @@
         <div [hidden]="subcomentarioHabilitado != comentario.idComentario">
           <form #formSubcomentario="ngForm">
             <div class="input-group">
-              <img [src]="authService.obterUsuario()?.foto"
-                   alt="Foto do usuário logado"
-                   class="avatar"/>
+              <a [routerLink]="['/perfil', authService.obterUsuario()?.idUsuario]">
+                <img [src]="authService.obterUsuario()?.foto"
+                     alt="Foto do usuário logado"
+                     class="avatar no-right-border"/>
+              </a>
 
               <input type="text"
                      required="required"
@@ -141,9 +155,11 @@
 
     <form #formComentario="ngForm">
       <div class="input-group">
-        <img [src]="authService.obterUsuario()?.foto"
-             alt="Foto do usuário logado"
-             class="avatar"/>
+        <a [routerLink]="['/perfil', authService.obterUsuario()?.idUsuario]">
+          <img [src]="authService.obterUsuario()?.foto"
+               alt="Foto do usuário logado"
+               class="avatar no-right-border"/>
+        </a>
 
         <input type="text"
                required="required"
