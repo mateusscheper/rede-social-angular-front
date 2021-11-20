@@ -13,6 +13,7 @@ import {SharedModule} from "./modules/shared";
 import {PerfilModule} from "./modules/perfil";
 import {FotosModule} from "./modules/fotos";
 import {AmigosModule} from "./modules/amigos";
+import {ConfiguracoesModule} from "./modules/configuracoes/configuracoes.module";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {AmigosModule} from "./modules/amigos";
     HomeModule,
     PostModule,
     AuthModule,
+    ConfiguracoesModule,
     AppRoutingModule
   ],
   providers: [authInterceptorProviders, CookieService],

@@ -6,6 +6,7 @@ import {AuthRoutes} from "./modules/auth/auth-routing.module";
 import {PerfilRoutes} from "./modules/perfil/perfil-routing.module";
 import {FotosRoutes} from "./modules/fotos/fotos-routing.module";
 import {AmigosRoutes} from "./modules/amigos/amigos-routing.module";
+import {ConfiguracoesRoutes} from "./modules/configuracoes/configuracoes-routing.module";
 
 export const routes: Routes = [
   ...HomeRoutes,
@@ -14,6 +15,7 @@ export const routes: Routes = [
   ...PerfilRoutes,
   ...FotosRoutes,
   ...AmigosRoutes,
+  ...ConfiguracoesRoutes,
   {
     path: '',
     redirectTo: '/login',

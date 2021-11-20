@@ -1,0 +1,22 @@
+<div class="col-12">
+  <div class="row" style="place-content: center">
+    <div class="col-6">
+      <table class="table table-striped table-hover table-bordered text-center">
+        <th scope="col">ID</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Conteúdo</th>
+        <th scope="col">Ação</th>
+
+        <tr *ngFor="let report of reports">
+          <td>{{report.id}}</td>
+          <td>{{report.tipo}}</td>
+          <td>{{report.conteudo}}</td>
+          <td>
+            <a href="#">Visualizar</a>
+            <a href="#">Registrar ação</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,10 @@ export class AdminService {
   }
 
   reportar(reportDTO: ReportDTO): Observable<any> {
-    console.log(reportDTO)
     return this.httpClient.post(this.URL_API_ADMIN + "/report", reportDTO);
+  }
+
+  consultarReports(): Observable<any> {
+    return this.httpClient.get(this.URL_API_ADMIN + "/report");
   }
 }
