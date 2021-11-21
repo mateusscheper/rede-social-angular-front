@@ -1,20 +1,21 @@
 <div class="row">
-  <div class="col-9 d-flex">
-    <div class="card text-center m-5" style="width: 100% !important; height: 100% !important;">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-6 col-md-12 col-sm-12 d-flex">
+    <div class="text-center m-5 h-100 w-100">
       <img src="../../../../assets/default-logo.png"
-           style="align-self: center; max-width: 600px"
+           class="img-fluid"
            alt="Imagem da rede social">
 
-      <div class="card-body">
-        <h5 class="card-title">Rede social</h5>
-        <p class="card-text">Algo sobre rede social</p>
-        <a href="#" class="card-link">Link 1</a>
-        <a href="#" class="card-link">Link 2</a>
+      <div class="mt-5">
+        <h5>Rede social</h5>
+        <p>Algo sobre rede social</p>
+        <a href="#" class="m-2">Link 1</a>
+        <a href="#" class="m-2">Link 2</a>
       </div>
     </div>
   </div>
 
-  <div class="col-3" style="align-self: center">
+  <div class="col-lg-3 col-md-12 col-sm-12 align-self-center">
     <form #formLogin="ngForm"
           *ngIf="!isLogado"
           (ngSubmit)="formLogin.form.valid && onSubmit()"
@@ -77,4 +78,6 @@
       </div>
     </form>
   </div>
+
+  <div class="col-1"></div>
 </div>

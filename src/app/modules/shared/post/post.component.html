@@ -34,14 +34,13 @@
 
   <div class="card-body">
     <img alt="..."
-         class="card-img-top mb-4"
-         [hidden]="!post?.arquivo"
-         src="{{post?.arquivo}}"
-         style="max-width: 600px; max-height: 600px; object-fit: cover">
+         class="card-img-top mb-4 mx-auto d-block img-post"
+         *ngIf="post?.arquivo"
+         src="{{post?.arquivo}}">
 
     <p class="card-text"
        [class.text-center]="!post?.arquivo"
-       [hidden]="!post?.descricao"
+       *ngIf="post?.descricao"
        style="clear: left">{{post?.descricao}}</p>
 
     <div *ngFor="let reacao of post?.reacoes" style="float: left; cursor: pointer">
