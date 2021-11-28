@@ -24,6 +24,10 @@ export class UsuarioSimplesDTO {
     return this._foto;
   }
 
+  set foto(value: string) {
+    this._foto = value;
+  }
+
   get amigos(): UsuarioSimplesDTO[] {
     return this._amigos;
   }

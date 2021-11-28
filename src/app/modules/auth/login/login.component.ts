@@ -30,9 +30,18 @@ export class LoginComponent implements OnInit {
     const token = this.authService.obterToken();
     if (token) {
       this.authService.validarToken(token)
-        .then(() => this.router.navigate(['/home']))
+        .then(() => this.verificarUsuarioERedirecionarHome())
         .catch()
     }
+  }
+
+  private verificarUsuarioERedirecionarHome() {
+    const usuario = this.authService.obterUsuario();
+
+    if (usuario && usuario.idUsuario != null)
+      this.router.navigate(['/home']);
+    else
+      this.authService.deslogar();
   }
 
   onSubmit(): void {

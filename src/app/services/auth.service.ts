@@ -12,7 +12,8 @@ export class AuthService {
 
   private AUTH_API = "http://localhost:8080/api/auth/";
   private TOKEN_KEY = 'auth-token';
-  private USER_KEY = 'auth-user';
+
+  private usuario = new UsuarioSimplesDTO();
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
@@ -33,9 +34,8 @@ export class AuthService {
   }
 
   deslogar(): void {
-    console.log(this.cookieService.getAll());
     this.cookieService.deleteAll();
-    console.log(this.cookieService.getAll());
+    this.usuario = null;
   }
 
   public salvarToken(loginDTO: LoginDTO): void {
@@ -51,26 +51,17 @@ export class AuthService {
   }
 
   public salvarUsuarioEmSessao(loginDTO: LoginDTO): void {
-    this.cookieService.set(this.USER_KEY, JSON.stringify(loginDTO.usuario))
-  }
-
-  private salvarUsuarioDTOEmSessao(usuarioDTO: UsuarioSimplesDTO): void {
-    this.cookieService.set(this.USER_KEY, JSON.stringify(usuarioDTO))
+    this.usuario = loginDTO.usuario;
   }
 
   public obterUsuario(): any {
-    const usuario = this.cookieService.get(this.USER_KEY);
-    if (usuario)
-      return JSON.parse(usuario);
+    if (this.usuario)
+      return this.usuario;
     return null;
   }
 
   public atualizarFotoUsuario(foto: string) {
-    let usuarioString = this.cookieService.get(this.USER_KEY);
-    if (usuarioString) {
-      let usuario = JSON.parse(usuarioString);
-      usuario.foto = foto;
-      this.salvarUsuarioDTOEmSessao(usuario);
-    }
+    if (this.usuario)
+      this.usuario.foto = foto;
   }
 }
