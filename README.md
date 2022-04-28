@@ -45,3 +45,10 @@ Legenda:
 :large_blue_circle: Em planejamento
 :clock1030: Em desenvolvimento
 :red_circle: Cancelado
+
+## Pontos de melhoria
+
+- O armazenamento do usuário está sendo feito no authService. Trocar para armazenar no token JWT;
+- Estilizar o sistema com responsividade;
+- Colocar um loading ao fazer alguma ação;
+- Detalhar e padronizar o tratamento de erros.
